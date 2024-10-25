@@ -1,9 +1,10 @@
+@import 'variables';
+@import 'mixins';   
+@import 'banners';  
+@import 'body';
+@import 'navbar';
+@import 'footer';
+@import 'products';
+
 // Fonts
 @import url('https://fonts.bunny.net/css?family=Nunito');
-
-// Variables
-@import 'variables';
-
-//Files
-@import 'header';
-@import 'elements';

@@ -1,0 +1,16 @@
+.products {
+    .row {
+        display: flex;
+        justify-content: space-between;
+        margin: 20px 0;
+
+        .column {
+            flex: 1;
+            margin: 0 10px;
+            padding: 20px;
+            background-color: $background-color;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+    }
+}

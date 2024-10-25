@@ -1,19 +1,29 @@
 @extends('layouts.app')
-<div class="continer">
-    <nav class="navigation-desktop">
-        @if (Route::has('login'))
-            <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
-                @auth
-                    <a href="{{ url('/home') }}" class="navigation-desktop-item home">Home</a>
-                @else
-                    <a href="{{ route('login') }}" class="navigation-desktop-item log-in">Log in</a>
 
-                    @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="navigation-desktop-item register">Register</a>
-                    @endif
-                @endauth
-            </div>
-        @endif
-    </nav>
-</div>
+@section('content')
+    <div class="banners">
+        <div class="banner">Banner 1</div>
+        <div class="banner">Banner 2</div>
+        <div class="banner">Banner 3</div>
+    </div>
+    
+    <div class="products">
+        <div class="row">
+            <div class="column">Product 1</div>
+            <div class="column">Product 2</div>
+        </div>
+        <div class="row">
+            <div class="column">Product 3</div>
+            <div class="column">Product 4</div>
+        </div>
+        <div class="row">
+            <div class="column">Product 5</div>
+            <div class="column">Product 6</div>
+        </div>
+    </div>
 
+    <div class="sliders">
+        <div class="slider long-slider">Long Slider</div>
+        <div class="slider short-slider">Short Slider</div>
+    </div>
+@endsection

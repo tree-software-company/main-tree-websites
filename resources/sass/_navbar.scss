@@ -1,0 +1,104 @@
+@import 'variables'; // Import zmiennych
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $navbar-bg-color; // Użycie zmiennej
+    padding: 10px;
+
+    .logo a {
+        color: $navbar-text-color; // Użycie zmiennej
+        font-size: 24px;
+        text-decoration: none;
+    }
+
+    .navigation-desktop {
+        display: flex;
+        align-items: center;
+
+        a {
+            color: $navbar-text-color; // Użycie zmiennej
+            text-decoration: none;
+            margin: 0 15px;
+            &:hover {
+                color: $navbar-link-hover-color; // Użycie zmiennej
+                text-decoration: underline;
+            }
+        }
+
+        .search, .account {
+            position: relative;
+
+            .search-dropdown, .account-dropdown {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background-color: white;
+                border: 1px solid #ccc;
+                z-index: 1;
+            }
+
+            button {
+                background: transparent;
+                border: none;
+                color: $navbar-text-color; // Użycie zmiennej
+                cursor: pointer;
+
+                &:hover + .search-dropdown,
+                &:hover + .account-dropdown {
+                    display: block;
+                }
+            }
+
+            input {
+                padding: 5px;
+                width: 200px;
+            }
+        }
+    }
+}
+
+.search-dropdown, .account-dropdown {
+    display: none; /* Ukryte domyślnie */
+    position: absolute;
+    background-color: #fff; /* Białe tło */
+    border: 1px solid #ccc; /* Szare obramowanie */
+    border-radius: 4px; /* Zaokrąglone rogi */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Cień dla efektu głębi */
+    z-index: 1000; /* Ustawienie z-index, aby były na wierzchu */
+    padding: 10px; /* Padding wewnętrzny */
+    min-width: 200px; /* Minimalna szerokość */
+    transition: all 0.2s ease-in-out; /* Płynna animacja */
+    
+    /* Wyrównanie do prawej krawędzi */
+    right: 0;
+
+    a {
+        color: #2C2A25; /* Kolor tekstu */
+        text-decoration: none; /* Bez podkreślenia */
+        display: block; /* Ustawienie na block, aby zająć całą szerokość */
+        padding: 10px; /* Padding wewnętrzny */
+        border-radius: 4px; /* Zaokrąglone rogi dla elementów menu */
+
+        &:hover {
+            background-color: #E0C097; /* Kolor tła przy najechaniu */
+            color: #3D2C26; /* Kolor tekstu przy najechaniu */
+        }
+    }
+}
+
+
+
+.pl {
+    .navbar {
+        background-color: #ff5733; // Kolor dla języka polskiego
+    }
+}
+
+.en {
+    .navbar {
+        background-color: $navbar-bg-color; // Kolor dla języka angielskiego
+    }
+}

@@ -1,0 +1,19 @@
+footer {
+    background-color: $footer-bg-color; // Użycie zmiennej
+    padding: 20px;
+
+    .footer-links {
+        display: flex;
+        justify-content: center;
+
+        a {
+            color: $footer-link-color; // Użycie zmiennej
+            text-decoration: none;
+            margin: 0 10px;
+            &:hover {
+                color: $footer-link-hover-color; // Użycie zmiennej
+                text-decoration: underline;
+            }
+        }
+    }
+}

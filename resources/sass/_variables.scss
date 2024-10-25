@@ -1,7 +1,16 @@
-// Body
-$body-bg: #f8fafc;
+$primary-color: #3490dc; // Kolor główny
+$secondary-color: #ffed4a; // Kolor drugorzędny
+$background-color: #f8fafc; // Kolor tła
+$font-color: #333; // Kolor tekstu
 
-// Typography
-$font-family-sans-serif: 'Nunito', sans-serif;
-$font-size-base: 0.9rem;
-$line-height-base: 1.6;
+// Definiowanie kolorów
+$navbar-bg-color: #E0C097;        // Jasny, ciepły beż
+$navbar-text-color: #2C2A25;      // Bardzo ciemny brąz (wyróżniający się)
+$navbar-link-color: #A26A5D;      // Ciepły brąz
+$navbar-link-hover-color: #C09B7A; // Jaśniejszy, subtelny brąz
+
+$footer-bg-color: #34495e;        // Ciemniejszy niebieski (jeśli chcesz zmienić, daj znać)
+$footer-text-color: #ecf0f1;      // Jasny szary
+$footer-link-color: #3498db;      // Jasny niebieski
+$footer-link-hover-color: #2980b9; // Ciemniejszy niebieski
+
