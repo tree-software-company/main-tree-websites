@@ -11,16 +11,16 @@
 </head>
 <body class="{{ app()->getLocale() }}">
 
-    <header>
+    <header class="navigation-desktop">
         <nav class="navbar">
             <div class="logo">
                 <a href="{{ url('/') }}">
-                    <img src="{{ asset('storage/img/logos/logo.png') }}" alt="logo" height="35px"/>
+                    <img src="img/logos/logo.png" alt="logo" height="35px"/>
                 </a>
             </div>
             <div class="navigation-desktop">
-                <a href="/software">Software</a>
-                <a href="/support">Support</a>
+                <a href="/software">{{ __('message.software') }}</a>
+                <a href="/support">{{ __('message.support') }}</a>
                 <div class="search">
                     <button class="search-button">Search</button>
                     <div class="search-dropdown">
@@ -55,8 +55,8 @@
     <footer>
         <div class="footer-links">
             <a href="/about">About Us</a>
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/terms">Terms of Service</a>
+            <a href="/privacy">{{ __('message.privacyPolicy') }}</a>
+            <a href="/terms">{{ __('message.termsOfService') }}</a>
         </div>
     </footer>
 

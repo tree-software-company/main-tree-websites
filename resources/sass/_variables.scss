@@ -4,10 +4,15 @@ $background-color: #f8fafc; // Kolor tła
 $font-color: #333; // Kolor tekstu
 
 // Definiowanie kolorów
-$navbar-bg-color: #E0C097;        // Jasny, ciepły beż
-$navbar-text-color: #2C2A25;      // Bardzo ciemny brąz (wyróżniający się)
-$navbar-link-color: #A26A5D;      // Ciepły brąz
-$navbar-link-hover-color: #C09B7A; // Jaśniejszy, subtelny brąz
+$navbar-bg-color: #E0C097;        
+$navbar-text-color: #2C2A25;      
+$navbar-link-color: #A26A5D;      
+$navbar-link-hover-color: #C09B7A; 
+
+$navbar-second-text-color: #4D4B45;      // Jaśniejszy kolor tekstu
+$navbar-second-bg-color: #F2E1B3;        // Jaśniejszy kolor tła
+$navbar-second-link-color: #D6A19A;      // Jaśniejszy kolor linków
+$navbar-second-link-hover-color: #E1BFA3;
 
 $footer-bg-color: #34495e;        // Ciemniejszy niebieski (jeśli chcesz zmienić, daj znać)
 $footer-text-color: #ecf0f1;      // Jasny szary
