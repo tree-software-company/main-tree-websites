@@ -99,11 +99,11 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background-color: $navbar-second-bg-color; // Użycie zmiennej
+        background-color: $navbar-pl-bg-color; // Użycie zmiennej
         padding: 10px;
 
         .logo a {
-            color: $navbar-second-text-color; // Użycie zmiennej
+            color: $navbar-pl-text-color; // Użycie zmiennej
             font-size: 24px;
             text-decoration: none;
         }
@@ -113,11 +113,11 @@
             align-items: center;
 
             a {
-                color: $navbar-second-text-color; // Użycie zmiennej
+                color: $navbar-pl-text-color; // Użycie zmiennej
                 text-decoration: none;
                 margin: 0 15px;
                 &:hover {
-                    color: $navbar-second-link-hover-color; // Użycie zmiennej
+                    color: $navbar-pl-link-hover-color; // Użycie zmiennej
                     text-decoration: underline;
                 }
             }
@@ -138,7 +138,7 @@
                 button {
                     background: transparent;
                     border: none;
-                    color: $navbar-second-text-color; // Użycie zmiennej
+                    color: $navbar-pl-text-color; // Użycie zmiennej
                     cursor: pointer;
 
                     &:hover + .search-dropdown,
@@ -171,14 +171,14 @@
         right: 0;
 
         a {
-            color: $navbar-second-text-color; /* Kolor tekstu */
+            color: $navbar-pl-text-color; /* Kolor tekstu */
             text-decoration: none; /* Bez podkreślenia */
             display: block; /* Ustawienie na block, aby zająć całą szerokość */
             padding: 10px; /* Padding wewnętrzny */
             border-radius: 4px; /* Zaokrąglone rogi dla elementów menu */
 
             &:hover {
-                background-color: $navbar-second-bg-color; /* Kolor tła przy najechaniu */
+                background-color: $navbar-pl-bg-color; /* Kolor tła przy najechaniu */
                 color: #3D2C26; /* Kolor tekstu przy najechaniu */
             }
         }

@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="{{ asset('storage/img/logos/favicon.jpeg') }}" type="image/x-icon">
     <title>Tree</title>
 
     <!-- Scripts -->
@@ -15,7 +16,7 @@
         <nav class="navbar">
             <div class="logo">
                 <a href="{{ url('/') }}">
-                    <img src="img/logos/logo.png" alt="logo" height="35px"/>
+                    <img src="{{ asset('storage/img/logos/logo.png') }}" alt="logo" height="35px"/>
                 </a>
             </div>
             <div class="navigation-desktop">
