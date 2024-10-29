@@ -2,7 +2,7 @@
 
 return [
     'software' => 'Software',
-    'support' => 'Wsparcia',
+    'support' => 'Support',
     'privacyPolicy' => 'Privacy Policy',
     'termsOfService' => 'Terms of Service',
 ];

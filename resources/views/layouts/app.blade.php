@@ -52,9 +52,17 @@
     <main>
         @yield('content')
     </main>
-
-    <footer>
+    <section class="footer-first">
+        <div class="footer-first__text">
+            <span class="text">test</span>
+            <div class="footer-first__links">
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer-second">
         <div class="footer-links">
+            <span>© 2021 Tree. All rights reserved.</span>
             <a href="/about">About Us</a>
             <a href="/privacy">{{ __('message.privacyPolicy') }}</a>
             <a href="/terms">{{ __('message.termsOfService') }}</a>
