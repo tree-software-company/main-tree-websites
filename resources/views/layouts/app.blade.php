@@ -20,19 +20,28 @@
                 </a>
             </div>
             <div class="navigation-desktop">
-                <a href="/software">{{ __('message.software') }}</a>
+                <div class="software">
+                    <button class="software-button">{{ __('message.software') }}</button>
+                    <div class="software-dropdown">
+                        <a href="/beauty-booking">{{ __('message.beautyBooking') }}</a>
+                        <a href="/beauty-booking-pro">{{ __('message.beautyBookingPro') }}</a>
+                    </div>
+                </div>
                 <a href="/support">{{ __('message.support') }}</a>
                 <div class="search">
-                    <button class="search-button">Search</button>
+                    <button class="search-button">
+                        <i class="icon-search"></i>
+                    </button>
                     <div class="search-dropdown">
                         <input type="text" placeholder="Search...">
                     </div>
                 </div>
                 <div class="account">
-                    <button class="account-button">Account</button>
+                    <button class="account-button">
+                        <i class="icon-user"></i>
+                    </button>
                     <div class="account-dropdown">
                         @if (Route::has('login'))
-                        <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
                             @auth
                                 <a href="{{ url('/home') }}" class="navigation-desktop-item home">Home</a>
                             @else
@@ -41,8 +50,7 @@
                                     <a href="{{ route('register') }}" class="navigation-desktop-item register">Register</a>
                                 @endif
                             @endauth
-                        </div>
-                    @endif
+                        @endif
                     </div>
                 </div>
             </div>
@@ -55,17 +63,32 @@
     <section class="footer-first">
         <div class="footer-first__text">
             <span class="text">test</span>
-            <div class="footer-first__links">
-                
+            <div class="footer-first__columns">
+                <div class="footer-first__column">
+                    <h2 class="title">{{ __('message.account') }}</h2>
+                </div>
+                <div class="footer-first__column">
+                    <h2 class="title">{{ __('message.software') }}</h2>
+                </div>
+                <div class="footer-first__column">
+                    <h2 class="title">{{ __('message.treeStore') }}</h2>
+                </div>
+                <div class="footer-first__column">
+                    <h2 class="title">{{ __('message.forBusiness') }}</h2>
+                    <h2 class="title">{{ __('message.forEducation') }}</h2>
+                </div>
+                <div class="footer-first__column">
+                    <h2 class="title">{{ __('message.aboutUs') }}</h2>
+                </div>
             </div>
         </div>
     </section>
     <footer class="footer-second">
         <div class="footer-links">
-            <span>© 2021 Tree. All rights reserved.</span>
-            <a href="/about">About Us</a>
+            <span>{{ __('message.copyright') }}</span>
             <a href="/privacy">{{ __('message.privacyPolicy') }}</a>
-            <a href="/terms">{{ __('message.termsOfService') }}</a>
+            <a href="/legal">{{ __('message.legal') }}</a>
+            <a href="/sitemap">{{ __('message.sitemap') }}</a>
         </div>
     </footer>
 

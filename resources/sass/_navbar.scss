@@ -3,10 +3,13 @@
 .en-us {
     .navbar {
         display: flex;
+        position: fixed;
+        width: calc(100% - 20px);
         justify-content: space-between;
         align-items: center;
         background-color: $navbar-bg-color; // Użycie zmiennej
         padding: 10px;
+        opacity: 0.8;
 
         .logo a {
             color: $navbar-text-color; // Użycie zmiennej
@@ -23,15 +26,15 @@
                 text-decoration: none;
                 margin: 0 15px;
                 &:hover {
-                    color: $navbar-link-hover-color; // Użycie zmiennej
+                    color: $navbar-link-hover-color;
                     text-decoration: underline;
                 }
             }
 
-            .search, .account {
+            .search, .account, .software {
                 position: relative;
 
-                .search-dropdown, .account-dropdown {
+                .search-dropdown, .account-dropdown, .software-dropdown {
                     display: none;
                     position: absolute;
                     top: 100%;
@@ -44,11 +47,12 @@
                 button {
                     background: transparent;
                     border: none;
-                    color: $navbar-text-color; // Użycie zmiennej
+                    color: $navbar-text-color;
                     cursor: pointer;
 
                     &:hover + .search-dropdown,
-                    &:hover + .account-dropdown {
+                    &:hover + .account-dropdown,
+                    &:hover + .software-dropdown {
                         display: block;
                     }
                 }
@@ -61,19 +65,18 @@
         }
     }
 
-    .search-dropdown, .account-dropdown {
-        display: none; /* Ukryte domyślnie */
+    .search-dropdown, .account-dropdown, .software-dropdown {
+        display: none; 
         position: absolute;
-        background-color: #fff; /* Białe tło */
-        border: 1px solid #ccc; /* Szare obramowanie */
-        border-radius: 4px; /* Zaokrąglone rogi */
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Cień dla efektu głębi */
-        z-index: 1000; /* Ustawienie z-index, aby były na wierzchu */
-        padding: 10px; /* Padding wewnętrzny */
-        min-width: 200px; /* Minimalna szerokość */
-        transition: all 0.2s ease-in-out; /* Płynna animacja */
+        background-color: #fff; 
+        border: 1px solid #ccc; 
+        border-radius: 4px; 
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); 
+        z-index: 1000; 
+        padding: 10px; 
+        min-width: 200px; 
+        transition: all 0.2s ease-in-out; 
         
-        /* Wyrównanie do prawej krawędzi */
         right: 0;
 
         a {
@@ -122,10 +125,10 @@
                 }
             }
 
-            .search, .account {
+            .search, .account, .software {
                 position: relative;
 
-                .search-dropdown, .account-dropdown {
+                .search-dropdown, .account-dropdown, .software-dropdown {
                     display: none;
                     position: absolute;
                     top: 100%;
@@ -142,7 +145,8 @@
                     cursor: pointer;
 
                     &:hover + .search-dropdown,
-                    &:hover + .account-dropdown {
+                    &:hover + .account-dropdown,
+                    &:hover + .software-dropdown {
                         display: block;
                     }
                 }
@@ -155,31 +159,30 @@
         }
     }
 
-    .search-dropdown, .account-dropdown {
-        display: none; /* Ukryte domyślnie */
+    .search-dropdown, .account-dropdown, .software-dropdown {
+        display: none; 
         position: absolute;
-        background-color: #fff; /* Białe tło */
-        border: 1px solid #ccc; /* Szare obramowanie */
-        border-radius: 4px; /* Zaokrąglone rogi */
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Cień dla efektu głębi */
-        z-index: 1000; /* Ustawienie z-index, aby były na wierzchu */
-        padding: 10px; /* Padding wewnętrzny */
-        min-width: 200px; /* Minimalna szerokość */
-        transition: all 0.2s ease-in-out; /* Płynna animacja */
+        background-color: #fff; 
+        border: 1px solid #ccc; 
+        border-radius: 4px; 
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); 
+        z-index: 1000; 
+        padding: 10px; 
+        min-width: 200px; 
+        transition: all 0.2s ease-in-out; 
         
-        /* Wyrównanie do prawej krawędzi */
         right: 0;
 
         a {
-            color: $navbar-pl-text-color; /* Kolor tekstu */
-            text-decoration: none; /* Bez podkreślenia */
-            display: block; /* Ustawienie na block, aby zająć całą szerokość */
-            padding: 10px; /* Padding wewnętrzny */
-            border-radius: 4px; /* Zaokrąglone rogi dla elementów menu */
+            color: $navbar-pl-text-color; 
+            text-decoration: none; 
+            display: block; 
+            padding: 10px; 
+            border-radius: 4px;
 
             &:hover {
-                background-color: $navbar-pl-bg-color; /* Kolor tła przy najechaniu */
-                color: #3D2C26; /* Kolor tekstu przy najechaniu */
+                background-color: $navbar-pl-bg-color; 
+                color: #3D2C26;
             }
         }
     }

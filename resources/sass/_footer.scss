@@ -22,4 +22,10 @@ footer {
     margin: 0 auto;
     max-width: 980px;
     padding: 0 22px;
+    &__columns {
+        display: flex;
+    }
+    &__column {
+        width: 20%;
+    }
 }
