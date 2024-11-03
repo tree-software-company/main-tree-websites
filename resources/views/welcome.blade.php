@@ -27,3 +27,7 @@
         <div class="slider short-slider">Short Slider</div>
     </div>
 @endsection
+
+@section('Footercontent')
+    <span class="text">Footer Content</span>
+@endsection

@@ -1,55 +1,57 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Funkcja do zarządzania rozwijanym elementem
     function handleHover(button, dropdown) {
         let timer;
 
         button.addEventListener('mouseenter', function () {
             clearTimeout(timer);
-            dropdown.style.display = 'block'; // Pokazuje rozwinięcie
+            dropdown.style.display = 'block';
 
-            // Dostosowanie pozycji, aby nie wychodziła poza prawą krawędź
             const rect = dropdown.getBoundingClientRect();
             const rightEdge = window.innerWidth - rect.right;
 
             if (rightEdge < 0) {
-                dropdown.style.left = 'auto'; // Resetujemy lewą pozycję
-                dropdown.style.right = '0'; // Wyrównanie do prawej
+                dropdown.style.left = 'auto'; 
+                dropdown.style.right = '0'; 
             }
         });
 
         button.addEventListener('mouseleave', function () {
-            // Ustal czas na utrzymanie rozwinięcia
             timer = setTimeout(function () {
-                dropdown.style.display = 'none'; // Ukrywa rozwinięcie
-            }, 0); // Ustawienie na 300 ms
+                dropdown.style.display = 'none'; 
+            }, 0); 
         });
 
         dropdown.addEventListener('mouseenter', function () {
-            clearTimeout(timer); // Anuluje timer, gdy myszka jest nad rozwinięciem
-            dropdown.style.display = 'block'; // Zapewnia, że dropdown jest widoczny
+            clearTimeout(timer);
+            dropdown.style.display = 'block'; 
         });
 
         dropdown.addEventListener('mouseleave', function () {
             timer = setTimeout(function () {
-                dropdown.style.display = 'none'; // Ukrywa rozwinięcie
-            }, 0); // Ustawienie na 300 ms
+                dropdown.style.display = 'none'; 
+            }, 0); 
         });
     }
 
-    // Wybierz elementy rozwijane
     const loginButton = document.querySelector('.account');
     const loginDropdown = document.querySelector('.account-dropdown');
 
     const searchButton = document.querySelector('.search');
     const searchDropdown = document.querySelector('.search-dropdown');
 
-    // Przypisz funkcje do elementów
+    const softwareButton = document.querySelector('.software');
+    const softwareDropdown = document.querySelector('.software-dropdown');
+
     if (loginButton && loginDropdown) {
         handleHover(loginButton, loginDropdown);
     }
 
     if (searchButton && searchDropdown) {
         handleHover(searchButton, searchDropdown);
+    }
+
+    if (softwareButton && softwareDropdown) {
+        handleHover(softwareButton, softwareDropdown);
     }
 });
 

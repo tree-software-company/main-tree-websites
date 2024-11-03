@@ -1,17 +1,21 @@
 footer {
-    background-color: $footer-bg-color; // Użycie zmiennej
+    background-color: $footer-bg-color;
     padding: 20px;
 
     .footer-links {
         display: flex;
         justify-content: center;
 
+        span {
+            color: $footer-link-color;
+        }
+
         a {
-            color: $footer-link-color; // Użycie zmiennej
+            color: $footer-link-color;
             text-decoration: none;
             margin: 0 10px;
             &:hover {
-                color: $footer-link-hover-color; // Użycie zmiennej
+                color: $footer-link-hover-color; 
                 text-decoration: underline;
             }
         }

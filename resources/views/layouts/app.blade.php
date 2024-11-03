@@ -62,7 +62,7 @@
     </main>
     <section class="footer-first">
         <div class="footer-first__text">
-            <span class="text">test</span>
+            @yield('Footercontent')
             <div class="footer-first__columns">
                 <div class="footer-first__column">
                     <h2 class="title">{{ __('message.account') }}</h2>
@@ -85,7 +85,7 @@
     </section>
     <footer class="footer-second">
         <div class="footer-links">
-            <span>{{ __('message.copyright') }}</span>
+            <span class="text">{{ __('message.copyright') }}</span>
             <a href="/privacy">{{ __('message.privacyPolicy') }}</a>
             <a href="/legal">{{ __('message.legal') }}</a>
             <a href="/sitemap">{{ __('message.sitemap') }}</a>
