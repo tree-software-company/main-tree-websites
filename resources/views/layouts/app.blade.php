@@ -85,10 +85,17 @@
     </section>
     <footer class="footer-second">
         <div class="footer-links">
-            <span class="text">{{ __('message.copyright') }}</span>
-            <a href="/privacy">{{ __('message.privacyPolicy') }}</a>
-            <a href="/legal">{{ __('message.legal') }}</a>
-            <a href="/sitemap">{{ __('message.sitemap') }}</a>
+            <div class="footer-links-first__column">
+                <span class="text">{{ __('message.copyright') }}</span>
+            </div>
+            <div class="footer-links-second__column">
+                <a href="/privacy">{{ __('message.privacyPolicy') }}</a>
+                <a href="/legal">{{ __('message.legal') }}</a>
+                <a href="/sitemap">{{ __('message.sitemap') }}</a>
+            </div>
+            <div class="footer-links-third__column">
+                <a href="/contact">{{ __('message.region') }}</a>
+            </div>
         </div>
     </footer>
 

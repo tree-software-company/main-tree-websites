@@ -4,7 +4,29 @@ footer {
 
     .footer-links {
         display: flex;
-        justify-content: center;
+        width: 100%;
+
+
+        &-first__column {
+            display: flex;
+            position: absolute;
+            left: 0;
+            margin-left: 10px;
+        }
+
+        &-second__column {
+            display: flex;
+            position: relative;
+            justify-content: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        &-third__column {
+            display: flex;
+            position: absolute;
+            right: 0;
+        }
 
         span {
             color: $footer-link-color;
