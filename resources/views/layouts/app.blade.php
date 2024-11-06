@@ -11,7 +11,7 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body class="{{ app()->getLocale() }}">
-
+    <!-- desktop header -->
     <header class="navigation-desktop">
         <nav class="navbar">
             <div class="logo">
@@ -51,6 +51,52 @@
                                 @endif
                             @endauth
                         @endif
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- mobile header -->
+
+    <header class="navigation-mobile">
+        <nav class="navbar">
+            <div class="logo-mobile">
+                <a href="{{ url('/') }}">
+                    <img src="{{ asset('storage/img/logos/logo.png') }}" alt="logo" height="35px"/>
+                </a>
+            </div>
+            <div class="navigation-mobile">
+                <div class="search mobile-nav__link">
+                    <div class="search-button">
+                        <i class="icon-search"></i>
+                    </div>
+                    <div class="search-dropdown">
+                        <input type="text" placeholder="Search...">
+                    </div>
+                </div>
+                <div class="account mobile-nav__link">
+                    <div class="account-button">
+                        <i class="icon-user"></i>
+                    </div>
+                    <div class="account-dropdown">
+                        @if (Route::has('login'))
+                            @auth
+                                <a href="{{ url('/home') }}" class="navigation-desktop-item home">Home</a>
+                            @else
+                                <a href="{{ route('login') }}" class="navigation-desktop-item log-in">Log in</a>
+                                @if (Route::has('register'))
+                                    <a href="{{ route('register') }}" class="navigation-desktop-item register">Register</a>
+                                @endif
+                            @endauth
+                        @endif
+                    </div>
+                </div>
+                <div class="show-more mobile-nav__link">
+                    <div class="menu-show-more">
+                        <div class="account-button">
+                            <i class="icon-menu"></i>
+                        </div>
                     </div>
                 </div>
             </div>
