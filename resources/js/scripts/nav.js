@@ -57,5 +57,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //mobile nav
 
+document.querySelector('.search-button-mobile').addEventListener('click', () => {
+    document.querySelector('.search-dropdown-mobile').classList.add('activeFlex');
+});
+
+document.querySelector('.account-button-mobile').addEventListener('click', () => {
+    document.querySelector('.account-dropdown-mobile').classList.add('activeFlex');
+});
+
+document.querySelectorAll('.close').forEach(button => {
+    button.addEventListener('click', () => {
+      document.querySelectorAll('.activeFlex').forEach(element => {
+        element.classList.remove('activeFlex');
+      });
+    });
+  });
+  
+
 
 

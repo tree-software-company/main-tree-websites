@@ -202,12 +202,30 @@
         .mobile-nav__link {
             margin-left: 15px;
         }
-        .search-dropdown, .account-dropdown {
+        .search-dropdown-mobile, .account-dropdown-mobile {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 0;
             width: 100%;
             height: 100vh;
             background-color: $navbar-pl-bg-color;
+            flex-direction: column;
             opacity: 1;
             z-index: 1000;
+            .close {
+                position: absolute;
+                right: 0;
+                margin: 15px;
+            }
+            .dropdown {
+                &__items {
+                    display: grid;
+                    width: 80%;
+                    margin-top: 50px;
+                    justify-content: center;
+                }
+            }
         }
     }
 }

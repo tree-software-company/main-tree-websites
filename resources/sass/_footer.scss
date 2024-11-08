@@ -55,3 +55,22 @@ footer {
         width: 20%;
     }
 }
+
+@media (max-width: 833px) {
+    .footer-links {
+        flex-direction: column;
+    }
+    .footer-links-first__column {
+        position: relative !important;
+        order: 2;
+    }
+    .footer-links-second__column {
+        position: relative !important;
+        margin-left: 0 !important;
+        order: 3;
+    }
+    .footer-links-third__column {
+        order: 1;
+        position: relative !important;
+    }
+}
