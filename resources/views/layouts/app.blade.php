@@ -100,8 +100,19 @@
                 </div>
                 <div class="show-more mobile-nav__link">
                     <div class="menu-show-more">
-                        <div class="account-button">
+                        <div class="menu-button-mobile">
                             <i class="icon-menu"></i>
+                            <div class="menu-dropdown-mobile">
+                                <i class="icon-cross close"></i>
+                                <div class="dropdown__items">
+                                    <button class="software-button">{{ __('message.software') }}</button>
+                                    <div class="software-dropdown">
+                                        <a href="/beauty-booking">{{ __('message.beautyBooking') }}</a>
+                                        <a href="/beauty-booking-pro">{{ __('message.beautyBookingPro') }}</a>
+                                    </div>
+                                    <a href="/support">{{ __('message.support') }}</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

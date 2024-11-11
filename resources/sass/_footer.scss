@@ -57,6 +57,17 @@ footer {
 }
 
 @media (max-width: 833px) {
+    .footer-first {
+        &__columns {
+            display: block;
+        }
+        &__column {
+            width: 100%;
+            h2 {
+                font-size: 15px;
+            }
+        }
+    }
     .footer-links {
         flex-direction: column;
     }

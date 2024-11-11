@@ -65,13 +65,18 @@ document.querySelector('.account-button-mobile').addEventListener('click', () =>
     document.querySelector('.account-dropdown-mobile').classList.add('activeFlex');
 });
 
+document.querySelector('.menu-button-mobile').addEventListener('click', () => {
+    document.querySelector('.menu-dropdown-mobile').classList.add('activeFlex');
+});
+
 document.querySelectorAll('.close').forEach(button => {
     button.addEventListener('click', () => {
       document.querySelectorAll('.activeFlex').forEach(element => {
         element.classList.remove('activeFlex');
+        console.log('close');
       });
     });
-  });
+});
   
 
 
