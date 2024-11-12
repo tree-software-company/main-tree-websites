@@ -14,4 +14,5 @@ return [
     'forBusiness' => 'For Business',
     'forEducation' => 'For Education',
     'aboutUs' => 'About Us',
+    'region' => 'United States',
 ];

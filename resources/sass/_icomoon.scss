@@ -25,6 +25,9 @@
     -moz-osx-font-smoothing: grayscale;
   }
   
+  .icon-circle-down:before {
+    content: "\ea43";
+  }
   .icon-menu:before {
     content: "\e9bd";
   }

@@ -1,188 +1,167 @@
 @import 'variables';
 
+.navbar {
+    display: flex;
+    position: fixed;
+    width: calc(100% - 20px);
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    opacity: 0.8;
+
+    .logo a {
+        font-size: 24px;
+        text-decoration: none;
+    }
+
+    .navigation-desktop {
+        display: flex;
+        align-items: center;
+
+        a {
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .search, .account, .software {
+            position: relative;
+
+            .search-dropdown, .account-dropdown, .software-dropdown {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                z-index: 1;
+            }
+
+            button {
+                background: transparent;
+                border: none;
+                cursor: pointer;
+
+                &:hover + .search-dropdown,
+                &:hover + .account-dropdown,
+                &:hover + .software-dropdown {
+                    display: block;
+                }
+            }
+
+            input {
+                padding: 5px;
+                width: 200px;
+            }
+        }
+    }
+}
+
+.search-dropdown, .account-dropdown, .software-dropdown {
+    display: none; 
+    position: absolute;
+    border-radius: 4px; 
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); 
+    z-index: 1000; 
+    padding: 10px; 
+    min-width: 200px; 
+    transition: all 0.2s ease-in-out; 
+    
+    right: 0;
+
+    a {
+        text-decoration: none; 
+        display: block; 
+        padding: 10px; 
+        border-radius: 4px; 
+    }
+}
+
 .en-us {
     .navbar {
-        display: flex;
-        position: fixed;
-        width: calc(100% - 20px);
-        justify-content: space-between;
-        align-items: center;
-        background-color: $navbar-bg-color; // Użycie zmiennej
-        padding: 10px;
-        opacity: 0.8;
-
+        background-color: $navbar-bg-color; 
         .logo a {
-            color: $navbar-text-color; // Użycie zmiennej
-            font-size: 24px;
-            text-decoration: none;
+            color: $navbar-text-color; 
         }
 
         .navigation-desktop {
-            display: flex;
-            align-items: center;
 
             a {
-                color: $navbar-text-color; // Użycie zmiennej
-                text-decoration: none;
-                margin: 0 15px;
+                color: $navbar-text-color; 
                 &:hover {
-                    color: $navbar-link-hover-color;
-                    text-decoration: underline;
+                    color: $navbar-text-color;
                 }
             }
 
             .search, .account, .software {
-                position: relative;
 
                 .search-dropdown, .account-dropdown, .software-dropdown {
-                    display: none;
-                    position: absolute;
-                    top: 100%;
-                    left: 0;
-                    background-color: #fff;
-                    border: 1px solid #ccc;
-                    z-index: 1;
+                    background-color: $navbar-bg-color;
+                    border: 1px solid $c-gray;
                 }
 
                 button {
-                    background: transparent;
-                    border: none;
                     color: $navbar-text-color;
-                    cursor: pointer;
-
-                    &:hover + .search-dropdown,
-                    &:hover + .account-dropdown,
-                    &:hover + .software-dropdown {
-                        display: block;
-                    }
-                }
-
-                input {
-                    padding: 5px;
-                    width: 200px;
                 }
             }
         }
     }
 
     .search-dropdown, .account-dropdown, .software-dropdown {
-        display: none; 
-        position: absolute;
-        background-color: #fff; 
-        border: 1px solid #ccc;
-        border-radius: 4px; 
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); 
-        z-index: 1000; 
-        padding: 10px; 
-        min-width: 200px; 
-        transition: all 0.2s ease-in-out; 
-        
-        right: 0;
+        background-color: $navbar-bg-color; 
+        border: 1px solid $c-gray;
 
         a {
-            color: $navbar-text-color; /* Kolor tekstu */
-            text-decoration: none; /* Bez podkreślenia */
-            display: block; /* Ustawienie na block, aby zająć całą szerokość */
-            padding: 10px; /* Padding wewnętrzny */
-            border-radius: 4px; /* Zaokrąglone rogi dla elementów menu */
+            color: $navbar-text-color; 
 
             &:hover {
-                background-color: $navbar-bg-color; /* Kolor tła przy najechaniu */
-                color: #3D2C26; /* Kolor tekstu przy najechaniu */
+                background-color: $navbar-link-hover-color; 
+                color: $navbar-text-color; 
             }
         }
     }
-
     
 }
 
-
 .pl {
     .navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background-color: $navbar-pl-bg-color; // Użycie zmiennej
-        padding: 10px;
+        background-color: $navbar-pl-bg-color; 
 
         .logo a {
-            color: $navbar-pl-text-color; // Użycie zmiennej
-            font-size: 24px;
-            text-decoration: none;
+            color: $navbar-pl-text-color; 
         }
 
         .navigation-desktop {
-            display: flex;
-            align-items: center;
 
             a {
-                color: $navbar-pl-text-color; // Użycie zmiennej
-                text-decoration: none;
-                margin: 0 15px;
+                color: $navbar-pl-text-color; 
                 &:hover {
-                    color: $navbar-pl-link-hover-color; // Użycie zmiennej
-                    text-decoration: underline;
+                    color: $navbar-pl-text-color;
                 }
             }
 
             .search, .account, .software {
-                position: relative;
 
                 .search-dropdown, .account-dropdown, .software-dropdown {
-                    display: none;
-                    position: absolute;
-                    top: 100%;
-                    left: 0;
-                    background-color: #fff;
-                    border: 1px solid #ccc;
+                    background-color: $navbar-pl-bg-color;
+                    border: 1px solid $c-gray;
                     z-index: 1;
                 }
 
                 button {
-                    background: transparent;
-                    border: none;
-                    color: $navbar-pl-text-color; // Użycie zmiennej
-                    cursor: pointer;
-
-                    &:hover + .search-dropdown,
-                    &:hover + .account-dropdown,
-                    &:hover + .software-dropdown {
-                        display: block;
-                    }
-                }
-
-                input {
-                    padding: 5px;
-                    width: 200px;
+                    color: $navbar-pl-text-color;
                 }
             }
         }
     }
 
     .search-dropdown, .account-dropdown, .software-dropdown {
-        display: none; 
-        position: absolute;
-        background-color: #fff; 
-        border: 1px solid #ccc; 
-        border-radius: 4px; 
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); 
-        z-index: 1000; 
-        padding: 10px; 
-        min-width: 200px; 
-        transition: all 0.2s ease-in-out; 
+        background-color: $navbar-pl-bg-color; 
+        border: 1px solid $c-gray; 
         
-        right: 0;
-
         a {
             color: $navbar-pl-text-color; 
-            text-decoration: none; 
-            display: block; 
-            padding: 10px; 
-            border-radius: 4px;
 
             &:hover {
-                background-color: $navbar-pl-bg-color; 
-                color: #3D2C26;
+                background-color: $navbar-pl-link-hover-color; 
+                color: $navbar-pl-text-color;
             }
         }
     }
@@ -224,8 +203,56 @@
                     width: 80%;
                     margin-top: 50px;
                     justify-content: center;
+                    .accordion-navigation {
+                        width: 100%; 
+                        max-width: 600px; 
+                        margin: 0 auto;
+                    }
+                      
+                    .accordion-navigation__items {
+                        display: block; 
+                    }
+
+                    .accordion-navigation__item {
+                        color: $navbar-text-color;
+                        padding: 10px;
+                        font-size: 15px;
+                        text-decoration: none;
+                    }
+                      
+                    .accordion-header-navigation {
+                        color: $navbar-text-color;
+                        width: 100%;
+                        text-align: left;
+                        border: none;
+                        cursor: pointer;
+                        font-size: 20px;
+                        .icon-circle-down {
+                            font-size: 15px;
+                        }
+                    }
+                      
+                      
+                    .accordion-content-navigation {
+                        display: none;
+                        overflow: hidden;
+                        transition: max-height 0.3s ease;
+                        max-height: 0;
+                    }
+                      
+                    .accordion-content-navigation.active {
+                        display: flex;
+                        flex-direction: column; 
+                        max-height: 500px;
+                    }
+                    .support-navigation-mobile {
+                        color: $navbar-text-color;
+                        text-decoration: none;
+                        font-size: 20px;
+                    } 
                 }
             }
+              
         }
     }
 }

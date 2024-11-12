@@ -73,11 +73,17 @@ document.querySelectorAll('.close').forEach(button => {
     button.addEventListener('click', () => {
       document.querySelectorAll('.activeFlex').forEach(element => {
         element.classList.remove('activeFlex');
-        console.log('close');
       });
     });
 });
-  
+
+document.querySelectorAll('.accordion-header-navigation').forEach(button => {
+    button.addEventListener('click', () => {
+        
+        const content = button.nextElementSibling;
+        content.classList.toggle('active');
+    });
+}); 
 
 
 

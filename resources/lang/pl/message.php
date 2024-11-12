@@ -14,4 +14,5 @@ return [
     'forBusiness' => 'Dla biznesu',
     'forEducation' => 'Dla edukacji',
     'aboutUs' => 'O nas',
+    'region' => 'Polska',
 ];

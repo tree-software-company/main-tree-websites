@@ -6,12 +6,10 @@
     <link rel="icon" href="{{ asset('storage/img/logos/favicon.jpeg') }}" type="image/x-icon">
     <title>Tree</title>
 
-    <!-- Scripts -->
     @viteReactRefresh
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body class="{{ app()->getLocale() }}">
-    <!-- desktop header -->
     <header class="navigation-desktop">
         <nav class="navbar">
             <div class="logo">
@@ -57,8 +55,6 @@
         </nav>
     </header>
 
-    <!-- mobile header -->
-
     <header class="navigation-mobile">
         <nav class="navbar">
             <div class="logo-mobile">
@@ -102,16 +98,23 @@
                     <div class="menu-show-more">
                         <div class="menu-button-mobile">
                             <i class="icon-menu"></i>
-                            <div class="menu-dropdown-mobile">
-                                <i class="icon-cross close"></i>
-                                <div class="dropdown__items">
-                                    <button class="software-button">{{ __('message.software') }}</button>
-                                    <div class="software-dropdown">
-                                        <a href="/beauty-booking">{{ __('message.beautyBooking') }}</a>
-                                        <a href="/beauty-booking-pro">{{ __('message.beautyBookingPro') }}</a>
+                        </div>
+                        <div class="menu-dropdown-mobile">
+                            <i class="icon-cross close"></i>
+                            <div class="dropdown__items">
+                                <div class="accordion-navigation">
+                                    <div class="accordion-navigation__items">
+                                        <div class="accordion-header-navigation">
+                                            <span class="text">{{ __('message.software') }}</span>
+                                            <i class="icon-circle-down"></i>
+                                        </div>
+                                        <div class="accordion-content-navigation">
+                                            <a class="accordion-navigation__item" href="/beauty-booking">{{ __('message.beautyBooking') }}</a>
+                                            <a class="accordion-navigation__item" href="/beauty-booking-pro">{{ __('message.beautyBookingPro') }}</a>
+                                        </div>
                                     </div>
-                                    <a href="/support">{{ __('message.support') }}</a>
                                 </div>
+                                <a class="support-navigation-mobile" href="/support">{{ __('message.support') }}</a>
                             </div>
                         </div>
                     </div>
