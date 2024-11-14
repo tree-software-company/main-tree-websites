@@ -135,12 +135,15 @@
                 </div>
                 <div class="footer-first__column">
                     <h2 class="title">{{ __('message.software') }}</h2>
-                </div>
-                <div class="footer-first__column">
-                    <h2 class="title">{{ __('message.treeStore') }}</h2>
+                    <div class="footer-first__links">
+                        <a href="/beauty-booking">{{ __('message.beautyBooking') }}</a>
+                        <a href="/beauty-booking-pro">{{ __('message.beautyBookingPro') }}</a>
+                    </div>
                 </div>
                 <div class="footer-first__column">
                     <h2 class="title">{{ __('message.forBusiness') }}</h2>
+                </div>
+                <div class="footer-first__column">
                     <h2 class="title">{{ __('message.forEducation') }}</h2>
                 </div>
                 <div class="footer-first__column">
@@ -160,7 +163,7 @@
                 <a href="/sitemap">{{ __('message.sitemap') }}</a>
             </div>
             <div class="footer-links-third__column">
-                <a href="/contact">{{ __('message.region') }}</a>
+                <a href="/choose-country-region">{{ __('message.region') }}</a>
             </div>
         </div>
     </footer>
