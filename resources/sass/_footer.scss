@@ -45,14 +45,30 @@ footer {
 }
 
 .footer-first {
-    margin: 0 auto;
+    margin: 15px auto;
     max-width: 980px;
     padding: 0 22px;
+    .title {
+        margin: 5px;
+    }
     &__columns {
         display: flex;
     }
     &__column {
         width: 20%;
+    }
+    &__links {
+        display: flex;
+        flex-direction: column;
+        a {
+            text-decoration: none;
+            color: $font-color;
+            margin-left: 5px;
+            margin-top: 2px;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
     }
 }
 

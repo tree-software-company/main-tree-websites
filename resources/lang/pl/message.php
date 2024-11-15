@@ -15,4 +15,7 @@ return [
     'forEducation' => 'Dla edukacji',
     'aboutUs' => 'O nas',
     'region' => 'Polska',
+    'treeForEducation' => 'Tree dla edukacji',
+    'treeForBusiness' => 'Tree dla biznesu',
+    'contactUs' => 'Kontakt',
 ];

@@ -13,7 +13,7 @@
     <header class="navigation-desktop">
         <nav class="navbar">
             <div class="logo">
-                <a href="{{ url('/') }}">
+                <a href="{{app()->getLocale()}}/">
                     <img src="{{ asset('storage/img/logos/logo.png') }}" alt="logo" height="35px"/>
                 </a>
             </div>
@@ -25,7 +25,6 @@
                         <a href="/beauty-booking-pro">{{ __('message.beautyBookingPro') }}</a>
                     </div>
                 </div>
-                <a href="/support">{{ __('message.support') }}</a>
                 <div class="search">
                     <button class="search-button">
                         <i class="icon-search"></i>
@@ -58,7 +57,7 @@
     <header class="navigation-mobile">
         <nav class="navbar">
             <div class="logo-mobile">
-                <a href="{{ url('/') }}">
+                <a href="{{ app()->getLocale() }}/">
                     <img src="{{ asset('storage/img/logos/logo.png') }}" alt="logo" height="35px"/>
                 </a>
             </div>
@@ -114,7 +113,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a class="support-navigation-mobile" href="/support">{{ __('message.support') }}</a>
                             </div>
                         </div>
                     </div>
@@ -142,12 +140,21 @@
                 </div>
                 <div class="footer-first__column">
                     <h2 class="title">{{ __('message.forBusiness') }}</h2>
+                    <div class="footer-first__links">
+                        <a href="{{ app()->getLocale() }}/business">{{ __('message.treeForBusiness') }}</a>
+                    </div>
                 </div>
                 <div class="footer-first__column">
                     <h2 class="title">{{ __('message.forEducation') }}</h2>
+                    <div class="footer-first__links">
+                        <a href="{{ app()->getLocale() }}/education">{{ __('message.treeForEducation') }}</a>
+                    </div>
                 </div>
                 <div class="footer-first__column">
                     <h2 class="title">{{ __('message.aboutUs') }}</h2>
+                    <div class="footer-first__links">
+                        <a href="{{ app()->getLocale() }}/contact">{{ __('message.contactUs') }}</a>
+                    </div>
                 </div>
             </div>
         </div>
