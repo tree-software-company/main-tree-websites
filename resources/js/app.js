@@ -15,3 +15,4 @@ import './bootstrap';
 import './components/Example';
 import './scripts/nav';
 import './scripts/landing-page';
+import './scripts/accordions';

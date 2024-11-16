@@ -1,0 +1,20 @@
+@media (max-width: 833px) {
+    .footer-first__columns {
+        flex-direction: column;
+    }
+    .accordion-content {
+        display: none;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+    
+    .accordion-header {
+        cursor: pointer;
+        padding: 10px 0;
+        font-weight: bold;
+    }
+    
+    .accordion-content.active {
+        display: flex;
+    }
+}

@@ -13,7 +13,7 @@
     <header class="navigation-desktop">
         <nav class="navbar">
             <div class="logo">
-                <a href="{{app()->getLocale()}}/">
+                <a href="/{{app()->getLocale()}}/">
                     <img src="{{ asset('storage/img/logos/logo.png') }}" alt="logo" height="35px"/>
                 </a>
             </div>
@@ -57,7 +57,7 @@
     <header class="navigation-mobile">
         <nav class="navbar">
             <div class="logo-mobile">
-                <a href="{{ app()->getLocale() }}/">
+                <a href="/{{ app()->getLocale() }}/">
                     <img src="{{ asset('storage/img/logos/logo.png') }}" alt="logo" height="35px"/>
                 </a>
             </div>
@@ -129,34 +129,37 @@
             @yield('Footercontent')
             <div class="footer-first__columns">
                 <div class="footer-first__column">
-                    <h2 class="title">{{ __('message.account') }}</h2>
+                    <h2 class="title accordion-header icon-circle-down"> {{ __('message.account') }}</h2>
+                    <div class="footer-first__links accordion-content">
+                        <!-- Links or content here -->
+                    </div>
                 </div>
                 <div class="footer-first__column">
-                    <h2 class="title">{{ __('message.software') }}</h2>
-                    <div class="footer-first__links">
+                    <h2 class="title accordion-header icon-circle-down"> {{ __('message.software') }}</h2>
+                    <div class="footer-first__links accordion-content">
                         <a href="/beauty-booking">{{ __('message.beautyBooking') }}</a>
                         <a href="/beauty-booking-pro">{{ __('message.beautyBookingPro') }}</a>
                     </div>
                 </div>
                 <div class="footer-first__column">
-                    <h2 class="title">{{ __('message.forBusiness') }}</h2>
-                    <div class="footer-first__links">
-                        <a href="{{ app()->getLocale() }}/business">{{ __('message.treeForBusiness') }}</a>
+                    <h2 class="title accordion-header icon-circle-down"> {{ __('message.forBusiness') }}</h2>
+                    <div class="footer-first__links accordion-content">
+                        <a href="/{{ app()->getLocale() }}/business">{{ __('message.treeForBusiness') }}</a>
                     </div>
                 </div>
                 <div class="footer-first__column">
-                    <h2 class="title">{{ __('message.forEducation') }}</h2>
-                    <div class="footer-first__links">
-                        <a href="{{ app()->getLocale() }}/education">{{ __('message.treeForEducation') }}</a>
+                    <h2 class="title accordion-header icon-circle-down"> {{ __('message.forEducation') }}</h2>
+                    <div class="footer-first__links accordion-content">
+                        <a href="/{{ app()->getLocale() }}/education">{{ __('message.treeForEducation') }}</a>
                     </div>
                 </div>
                 <div class="footer-first__column">
-                    <h2 class="title">{{ __('message.aboutUs') }}</h2>
-                    <div class="footer-first__links">
-                        <a href="{{ app()->getLocale() }}/contact">{{ __('message.contactUs') }}</a>
+                    <h2 class="title accordion-header icon-circle-down"> {{ __('message.aboutUs') }}</h2>
+                    <div class="footer-first__links accordion-content">
+                        <a href="/{{ app()->getLocale() }}/contact">{{ __('message.contactUs') }}</a>
                     </div>
                 </div>
-            </div>
+            </div>            
         </div>
     </section>
     <footer class="footer-second">
@@ -165,9 +168,9 @@
                 <span class="text">{{ __('message.copyright') }}</span>
             </div>
             <div class="footer-links-second__column">
-                <a href="/privacy">{{ __('message.privacyPolicy') }}</a>
-                <a href="/legal">{{ __('message.legal') }}</a>
-                <a href="/sitemap">{{ __('message.sitemap') }}</a>
+                <a href="/{{ app()->getLocale() }}/legal/privacy">{{ __('message.privacyPolicy') }}</a>
+                <a href="/{{ app()->getLocale() }}/legal">{{ __('message.legal') }}</a>
+                <a href="/{{ app()->getLocale() }}/sitemap">{{ __('message.sitemap') }}</a>
             </div>
             <div class="footer-links-third__column">
                 <a href="/choose-country-region">{{ __('message.region') }}</a>

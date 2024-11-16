@@ -18,4 +18,6 @@ return [
     'treeForEducation' => 'Tree dla edukacji',
     'treeForBusiness' => 'Tree dla biznesu',
     'contactUs' => 'Kontakt',
+    'websiteTerms' => 'Warunki korzystania z witryny',
+    'homePage' => 'Strona główna',
 ];

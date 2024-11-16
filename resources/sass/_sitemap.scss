@@ -1,0 +1,23 @@
+.sitemap {
+    display: grid;
+    padding: 50px;
+    justify-content: center;
+    h1 {
+        font-size: 2em;
+        margin-bottom: 20px;
+    }
+    ul {
+        list-style: none;
+        padding: 0;
+        li {
+            margin-bottom: 10px;
+            a {
+                text-decoration: none;
+                color: #333;
+                &:hover {
+                    color: #007bff;
+                }
+            }
+        }
+    }
+}

@@ -18,4 +18,6 @@ return [
     'treeForEducation' => 'Tree for Education',
     'treeForBusiness' => 'Tree for Business',
     'contactUs' => 'Contact',
+    'websiteTerms' => 'Website Terms',
+    'homePage' => 'Home Page',
 ];
