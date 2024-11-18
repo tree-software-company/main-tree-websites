@@ -1,6 +1,9 @@
 <?php
 
 namespace App\Providers;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\View;
+
 
 use Illuminate\Support\ServiceProvider;
 
@@ -19,6 +22,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $logo = 'logo.png';
+        $logoUrl = Storage::disk('s3')->url($logo);
+        View::share('logoUrl', $logoUrl);
     }
 }

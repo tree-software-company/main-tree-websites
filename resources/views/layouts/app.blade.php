@@ -14,7 +14,7 @@
         <nav class="navbar">
             <div class="logo">
                 <a href="/{{app()->getLocale()}}/">
-                    <img src="{{ asset('storage/img/logos/logo.png') }}" alt="logo" height="35px"/>
+                    <img src="{{ $logoUrl }}" alt="logo" height="35px"/>
                 </a>
             </div>
             <div class="navigation-desktop">
@@ -58,7 +58,7 @@
         <nav class="navbar">
             <div class="logo-mobile">
                 <a href="/{{ app()->getLocale() }}/">
-                    <img src="{{ asset('storage/img/logos/logo.png') }}" alt="logo" height="35px"/>
+                    <img src="{{ $logoUrl }}" alt="logo" height="35px"/>
                 </a>
             </div>
             <div class="navigation-mobile">
