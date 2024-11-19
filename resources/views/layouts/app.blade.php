@@ -1,9 +1,14 @@
+<?php
+    $favicon = 'logo-background.jpeg';
+    $faviconUrl = Storage::disk('s3')->url($favicon);
+?>
+
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="{{ asset('storage/img/logos/favicon.jpeg') }}" type="image/x-icon">
+    <link rel="icon" href="{{ $faviconUrl }}" type="image/x-icon">
     <title>Tree</title>
 
     @viteReactRefresh
