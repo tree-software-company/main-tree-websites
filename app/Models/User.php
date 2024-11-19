@@ -2,44 +2,74 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Aws\DynamoDb\DynamoDbClient;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
+     * Określenie połączenia z DynamoDB.
+     * 
+     * @var string
+     */
+    protected $connection = 'dynamodb';  // Określamy połączenie z DynamoDB
+
+    /**
+     * Nazwa tabeli w DynamoDB
+     *
+     * @var string
+     */
+    protected $table = 'users';  // Tabela 'users' w DynamoDB
+
+    /**
+     * Klucz główny tabeli.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'user_id';  // Zakładając, że klucz główny to 'user_id'
+
+    public $incrementing = false;  // DynamoDB nie używa autoinkrementacji
+    protected $keyType = 'string'; // Klucz główny w DynamoDB jest typu string (np. UUID)
+
+    /**
+     * Atrybuty, które mogą być masowo przypisywane.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'user_id', 'name', 'email', 'password',
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
+     * Użyj AWS SDK do zapisu użytkownika w DynamoDB.
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    public static function create(array $data)
+    {
+        $dynamoDb = new DynamoDbClient([
+            'version' => 'latest',
+            'region'  => Config::get('services.dynamodb.region'),
+            'credentials' => [
+                'key'    => Config::get('services.dynamodb.key'),
+                'secret' => Config::get('services.dynamodb.secret'),
+            ],
+        ]);
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-    ];
+        // Zapisz użytkownika w tabeli DynamoDB
+        $dynamoDb->putItem([
+            'TableName' => 'users',
+            'Item' => [
+                'user_id' => ['S' => (string) \Str::uuid()],  // Generowanie unikalnego UUID dla user_id
+                'name' => ['S' => $data['name']],
+                'email' => ['S' => $data['email']],
+                'password' => ['S' => \Hash::make($data['password'])],
+            ],
+        ]);
+
+        return true;  // Jeśli operacja zakończyła się sukcesem
+    }
 }
