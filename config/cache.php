@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('CACHE_DRIVER', 'file'),
+    'default' => env('CACHE_DRIVER', 'dynamodb'),
 
     /*
     |--------------------------------------------------------------------------
@@ -82,11 +82,10 @@ return [
 
         'dynamodb' => [
             'driver' => 'dynamodb',
+            'table' => env('DYNAMODB_CACHE_TABLE', 'cache'),
+            'region' => env('AWS_DEFAULT_REGION', 'us-west-1'),
             'key' => env('AWS_ACCESS_KEY_ID'),
             'secret' => env('AWS_SECRET_ACCESS_KEY'),
-            'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
-            'table' => env('DYNAMODB_CACHE_TABLE', 'cache'),
-            'endpoint' => env('DYNAMODB_ENDPOINT'),
         ],
 
         'octane' => [

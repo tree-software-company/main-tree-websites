@@ -52,13 +52,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        // Używamy nowej metody `create` w modelu User, która zapisuje dane do DynamoDB
-        User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
-
-        return true;
+        return User::createUser($data);
     }
 }

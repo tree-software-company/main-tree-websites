@@ -169,6 +169,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ViewServiceProvider::class,
+        App\Providers\DynamoDbCacheServiceProvider::class,
+        App\Providers\DynamoDbServiceProvider::class,
 
     ])->toArray(),
 
