@@ -15,7 +15,6 @@ Route::get('/', function () {
 });
 
 // Define route for '/landing-page' without locale prefix (fallback for en-us)
-Route::get('/landing-page', [LandingPageController::class, 'show'])->name('landing-page');
 
 Route::get('/business', [TreeForBusinessController::class, 'index']);
 
@@ -34,6 +33,8 @@ Route::get('/choose-country-region', [RegionController::class, 'index']);
 // Authentication Routes
 Auth::routes();
 
+Route::get('/{url}', [LandingPageController::class, 'show'])->name('landing-page');
+
 // Route group for locale-prefixed routes (this is where the locale comes in)
 Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () {
     // Route for homepage with locale prefix
@@ -42,7 +43,6 @@ Route::group(['prefix' => '{locale}', 'middleware' => 'setLocale'], function () 
     });
 
     // Route for '/landing-page' with locale prefix
-    Route::get('/landing-page', [LandingPageController::class, 'show'])->name('landing-page');
 
     Route::get('/business', [TreeForBusinessController::class, 'index']);
 
