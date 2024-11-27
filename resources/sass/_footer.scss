@@ -51,6 +51,9 @@ footer {
     .title {
         margin: 5px;
     }
+    .icon-circle-down {
+        display: none;
+    }
     &__columns {
         display: flex;
     }
@@ -74,6 +77,13 @@ footer {
 
 @media (max-width: 833px) {
     .footer-first {
+        .icon-circle-down {
+            display: flex;
+            align-items: center;
+        }
+        &__header {
+            display: flex;
+        }
         &__columns {
             display: block;
         }

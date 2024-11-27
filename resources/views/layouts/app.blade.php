@@ -138,32 +138,47 @@
             @yield('Footercontent')
             <div class="footer-first__columns">
                 <div class="footer-first__column">
-                    <h2 class="title accordion-header icon-circle-down"> {{ __('message.account') }}</h2>
+                    <div class="footer-first__header accordion-header">
+                        <i class="icon-circle-down"></i>
+                        <h2 class="title"> {{ __('message.account') }}</h2>
+                    </div>
                     <div class="footer-first__links accordion-content">
                         <!-- Links or content here -->
                     </div>
                 </div>
                 <div class="footer-first__column">
-                    <h2 class="title accordion-header icon-circle-down"> {{ __('message.software') }}</h2>
+                    <div class="footer-first__header accordion-header">
+                        <i class="icon-circle-down"></i>
+                        <h2 class="title accordion-header"> {{ __('message.software') }}</h2>
+                    </div>
                     <div class="footer-first__links accordion-content">
                         <a href="/{{ app()->getLocale() }}/beauty-booking">{{ __('message.beautyBooking') }}</a>
                         <a href="/{{ app()->getLocale() }}/beauty-booking-pro">{{ __('message.beautyBookingPro') }}</a>
                     </div>
                 </div>
                 <div class="footer-first__column">
-                    <h2 class="title accordion-header icon-circle-down"> {{ __('message.forBusiness') }}</h2>
+                    <div class="footer-first__header accordion-header">
+                        <i class="icon-circle-down"></i>
+                        <h2 class="title accordion-header"> {{ __('message.forBusiness') }}</h2>
+                    </div>
                     <div class="footer-first__links accordion-content">
                         <a href="/{{ app()->getLocale() }}/business">{{ __('message.treeForBusiness') }}</a>
                     </div>
                 </div>
                 <div class="footer-first__column">
-                    <h2 class="title accordion-header icon-circle-down"> {{ __('message.forEducation') }}</h2>
+                    <div class="footer-first__header accordion-header">
+                        <i class="icon-circle-down"></i>
+                        <h2 class="title accordion-header"> {{ __('message.forEducation') }}</h2>
+                    </div>
                     <div class="footer-first__links accordion-content">
                         <a href="/{{ app()->getLocale() }}/education">{{ __('message.treeForEducation') }}</a>
                     </div>
                 </div>
                 <div class="footer-first__column">
-                    <h2 class="title accordion-header icon-circle-down"> {{ __('message.aboutUs') }}</h2>
+                    <div class="footer-first__header accordion-header">
+                        <i class="icon-circle-down"></i>
+                        <h2 class="title accordion-header"> {{ __('message.aboutUs') }}</h2>
+                    </div>
                     <div class="footer-first__links accordion-content">
                         <a href="/{{ app()->getLocale() }}/contact">{{ __('message.contactUs') }}</a>
                     </div>
