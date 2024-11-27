@@ -1,29 +1,28 @@
 <?php
     $favicon = 'logo-background.jpeg';
     $faviconUrl = Storage::disk('s3')->url($favicon);
-    $page = $data[0];
 ?>
 
 <!DOCTYPE html>
 
-<html lang="{{ $page['lang'] }}" dir="rtl">
+<html lang="{{ $data['lang'] }}">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="{{ $faviconUrl }}" type="image/x-icon">
-    <title>{{$page['meta_title']}}</title>
-    <meta name="description" content="{{$page['meta_description']}}">
+    <title>{{$data['meta_title']}}</title>
+    <meta name="description" content="{{$data['meta_description']}}">
 
     @viteReactRefresh
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
-<body class="{{ $page['lang'] }}">
+<body class="{{ $data['lang'] }}">
 
     <header class="navigation-desktop">
         <nav class="navbar">
             <div class="logo">
-                <a href="/$page['lang']/">
+                <a href="/{{ app()->getLocale() }}/">
                     <img src="{{ $logoUrl }}" alt="logo" height="35px"/>
                 </a>
             </div>
@@ -31,8 +30,8 @@
                 <div class="software">
                     <button class="software-button">{{ __('message.software') }}</button>
                     <div class="software-dropdown">
-                        <a href="/{{$page['lang']}}/beauty-booking">{{ __('message.beautyBooking') }}</a>
-                        <a href="/{{$page['lang']}}/beauty-booking-pro">{{ __('message.beautyBookingPro') }}</a>
+                        <a href="/{{ app()->getLocale() }}/beauty-booking">{{ __('message.beautyBooking') }}</a>
+                        <a href="/{{ app()->getLocale() }}/beauty-booking-pro">{{ __('message.beautyBookingPro') }}</a>
                     </div>
                 </div>
                 <div class="search">
@@ -67,7 +66,7 @@
     <header class="navigation-mobile">
         <nav class="navbar">
             <div class="logo-mobile">
-                <a href="/{{$page['lang']}}/">
+                <a href="/{{ app()->getLocale() }}/">
                     <img src="{{ $logoUrl }}" alt="logo" height="35px"/>
                 </a>
             </div>
@@ -118,8 +117,8 @@
                                             <i class="icon-circle-down"></i>
                                         </div>
                                         <div class="accordion-content-navigation">
-                                            <a class="accordion-navigation__item" href="/{{$page['lang']}}/beauty-booking">{{ __('message.beautyBooking') }}</a>
-                                            <a class="accordion-navigation__item" href="/{{$page['lang']}}/beauty-booking-pro">{{ __('message.beautyBookingPro') }}</a>
+                                            <a class="accordion-navigation__item" href="/{{ app()->getLocale() }}/beauty-booking">{{ __('message.beautyBooking') }}</a>
+                                            <a class="accordion-navigation__item" href="/{{ app()->getLocale() }}/beauty-booking-pro">{{ __('message.beautyBookingPro') }}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -147,26 +146,26 @@
                 <div class="footer-first__column">
                     <h2 class="title accordion-header icon-circle-down"> {{ __('message.software') }}</h2>
                     <div class="footer-first__links accordion-content">
-                        <a href="/{{$page['lang']}}/beauty-booking">{{ __('message.beautyBooking') }}</a>
-                        <a href="/{{$page['lang']}}/beauty-booking-pro">{{ __('message.beautyBookingPro') }}</a>
+                        <a href="/{{ app()->getLocale() }}/beauty-booking">{{ __('message.beautyBooking') }}</a>
+                        <a href="/{{ app()->getLocale() }}/beauty-booking-pro">{{ __('message.beautyBookingPro') }}</a>
                     </div>
                 </div>
                 <div class="footer-first__column">
                     <h2 class="title accordion-header icon-circle-down"> {{ __('message.forBusiness') }}</h2>
                     <div class="footer-first__links accordion-content">
-                        <a href="/{{$page['lang']}}/business">{{ __('message.treeForBusiness') }}</a>
+                        <a href="/{{ app()->getLocale() }}/business">{{ __('message.treeForBusiness') }}</a>
                     </div>
                 </div>
                 <div class="footer-first__column">
                     <h2 class="title accordion-header icon-circle-down"> {{ __('message.forEducation') }}</h2>
                     <div class="footer-first__links accordion-content">
-                        <a href="/{{$page['lang']}}/education">{{ __('message.treeForEducation') }}</a>
+                        <a href="/{{ app()->getLocale() }}/education">{{ __('message.treeForEducation') }}</a>
                     </div>
                 </div>
                 <div class="footer-first__column">
                     <h2 class="title accordion-header icon-circle-down"> {{ __('message.aboutUs') }}</h2>
                     <div class="footer-first__links accordion-content">
-                        <a href="/{{$page['lang']}}/contact">{{ __('message.contactUs') }}</a>
+                        <a href="/{{ app()->getLocale() }}/contact">{{ __('message.contactUs') }}</a>
                     </div>
                 </div>
             </div>            
@@ -178,9 +177,9 @@
                 <span class="text">{{ __('message.copyright') }}</span>
             </div>
             <div class="footer-links-second__column">
-                <a href="/{{$page['lang']}}/legal/privacy">{{ __('message.privacyPolicy') }}</a>
-                <a href="/{{$page['lang']}}/legal">{{ __('message.legal') }}</a>
-                <a href="/{{$page['lang']}}/sitemap">{{ __('message.sitemap') }}</a>
+                <a href="/{{ app()->getLocale() }}/legal/privacy">{{ __('message.privacyPolicy') }}</a>
+                <a href="/{{ app()->getLocale() }}/legal">{{ __('message.legal') }}</a>
+                <a href="/{{ app()->getLocale() }}/sitemap">{{ __('message.sitemap') }}</a>
             </div>
             <div class="footer-links-third__column">
                 <a href="/choose-country-region">{{ __('message.region') }}</a>

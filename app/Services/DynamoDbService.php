@@ -50,7 +50,27 @@ class DynamoDbService
     {
         return \Aws\DynamoDb\Marshaler::marshalItem($item);
     }
-    
+
+    public function getLangSetting()
+    {
+        try {
+            // Zakładając, że masz tabelę 'settings' z polem 'lang'
+            $result = $this->dynamoDb->scan([
+                'TableName' => 'settings',  // Nazwa tabeli
+            ]);
+
+            // Sprawdzenie, czy są wyniki
+            if (isset($result['Items']) && count($result['Items']) > 0) {
+                $item = $this->unmarshalItems($result['Items'])[0];  // Pobieramy pierwszy rekord
+                return $item['lang'];  // Zakładamy, że pole 'lang' przechowuje kod języka
+            }
+
+            return 'en-us';  // Domyślny język, jeśli brak w tabeli
+        } catch (\Aws\Exception\AwsException $e) {
+            dd('Error: ' . $e->getMessage());
+        }
+    }
+
     public function getData($tableName, $controller)
     {
         try {
@@ -73,26 +93,28 @@ class DynamoDbService
             dd('Error: ' . $e->getMessage());
         }
     }
-
-    public function getDataByUrl($tableName, $url, $controller)
+    
+    // Zmodyfikowana metoda, która nie filtruje już po 'controller_name', tylko po 'url'
+    public function getDataByUrl($tableName, $url)
     {
         try {
-            // Używamy aliasu dla zarezerwowanego słowa 'url'
+            // Używamy tylko 'url' w filtrze, a 'controller_name' zwrócimy jako nazwę widoku
             $result = $this->dynamoDb->scan([
                 'TableName' => $tableName,
-                'FilterExpression' => '#url = :url AND controller_name = :controller_name',
+                'FilterExpression' => '#url = :url',
                 'ExpressionAttributeNames' => [
                     '#url' => 'url', // Alias dla 'url'
                 ],
                 'ExpressionAttributeValues' => [
-                    ':controller_name' => ['S' => $controller],  // Filtrujemy po controller_name
                     ':url' => ['S' => $url],  // Filtrujemy po url
                 ],
             ]);
     
             // Jeśli znaleziono dane, zwracamy je
             if (count($result['Items']) > 0) {
-                return $this->unmarshalItems($result['Items']);  // Zwracamy dopasowane rekordy
+                // Zwracamy dane, w tym 'controller_name', które posłuży jako nazwa widoku
+                $unmarshalledData = $this->unmarshalItems($result['Items']);
+                return $unmarshalledData[0];  // Zakładamy, że chcemy tylko pierwszy wynik
             }
     
             return null;  // Jeśli brak wyników
@@ -101,9 +123,6 @@ class DynamoDbService
         }
     }
     
-    
-
-
     // Funkcja do unmarshalingu wyników
     private function unmarshalItems($items)
     {

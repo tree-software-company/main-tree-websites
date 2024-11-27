@@ -16,10 +16,10 @@ class HomepageController extends Controller
     }
 
     // Metoda do wyświetlania danych na stronie
-    public function show($url, $locale = 'en-us')
+    public function index($locale = 'en-us')
     {
         // Wywołanie funkcji i pobranie danych na podstawie 'url' oraz 'controller_name'
-        $data = $this->dynamoDBService->getDataByUrl('main-website', $url, 'homepage');
+        $data = $this->dynamoDBService->getDataByUrl('main-website', '');
         
         // Jeśli dane zostały znalezione, zwróć stronę z danymi
         if ($data) {

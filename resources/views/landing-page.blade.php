@@ -1,6 +1,3 @@
-<?php
-  $page = $data[0];
-?>
 @extends('layouts.app')
 
 @section('content')
@@ -8,24 +5,24 @@
 <div class="landing-page">
   <div class="content">
     <div class="hero">
-      <h1>{{$page['title']}}</h1>
-      <p class="tagline">{{$page['subtitle']}}</p>
+      <h1>{{$data['title']}}</h1>
+      <p class="tagline">{{$data['subtitle']}}</p>
     </div>
 
     <div class="product-description">
-      <h2>{{$page['title_section_1']}}</h2>
-      <p>{{$page['subtitle_section_1']}}</p>
+      <h2>{{$data['title_section_1']}}</h2>
+      <p>{{$data['subtitle_section_1']}}</p>
       <ul>
-        @foreach($page['list_in_section_1'] as $feature)
+        @foreach($data['list_in_section_1'] as $feature)
           <li>{{$feature}}</li>
         @endforeach
       </ul>
     </div>
 
     <div class="photo-ads">
-      <h2>{{$page['title_section_2']}}</h2>
+      <h2>{{$data['title_section_2']}}</h2>
       <div class="ads-container">
-        @foreach($page['photos_src_section_2'] as $ad)
+        @foreach($data['photos_src_section_2'] as $ad)
           <div class="ad">
             <img src="{{$ad[0]}}" alt="{{ $ad[1] }}">
             <p> {{$ad[2]}} </p>
@@ -35,9 +32,9 @@
     </div>
 
     <div class="faq">
-      <h2>{{$page['title_section_3']}}</h2>
+      <h2>{{$data['title_section_3']}}</h2>
       <div class="accordion">
-        @foreach($page['Q&A'] as $faq)
+        @foreach($data['Q&A'] as $faq)
           <div class="accordion-item">
             <button class="accordion-question">{{ $faq[0] }}</button>
             <div class="accordion-answer">
