@@ -17,24 +17,15 @@ Route::get('/en-us', function () {
     return redirect('/');
 });
 
-// Define route for '/landing-page' without locale prefix (fallback for en-us)
-Route::get('/{url}', [LandingPageController::class, 'show'])->where('url', '.*');
-
-// Jeżeli odwiedzisz domena.com/en-us/test/another/path
-Route::get('/en-us/{slug}', function ($slug) {
-    return redirect("/$slug");  // Przekierowanie do nowego URL bez "en-us"
-})->where('slug', '.*');
-
-Route::get('/contact', [ContactController::class, 'show'])->name('contact.show');
-Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
-
-Route::get('/sitemap', [SitemapController::class, 'index'])->name('sitemap');
-
-Route::get('/choose-country-region', [RegionController::class, 'index']);
-
-// Authentication Routes
 Auth::routes();
 
+Route::get('/en-us/{slug}', function ($slug) {
+    // Tworzymy przekierowanie na nową ścieżkę bez "en-us"
+    return redirect("/$slug", 301); // Używamy kodu HTTP 301 dla permanentnego przekierowania
+})->where('slug', '.*');
+
+// Define route for '/landing-page' without locale prefix (fallback for en-us)
+Route::get('/{url}', [LandingPageController::class, 'show'])->where('url', '.*');
 
 // Fallback route in case of invalid locale
 Route::fallback(function () {

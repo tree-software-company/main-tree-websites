@@ -20,4 +20,5 @@ return [
     'contactUs' => 'Kontakt',
     'websiteTerms' => 'Warunki korzystania z witryny',
     'homePage' => 'Strona główna',
+    'learnMore' => 'Dowiedz się więcej',
 ];

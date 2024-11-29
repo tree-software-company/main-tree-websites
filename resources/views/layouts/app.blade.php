@@ -17,7 +17,7 @@
     @viteReactRefresh
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
-<body class="{{ $data['lang'] }}">
+<body class="{{ $data['lang'] }} {{ $data['nav_color']}}">
 
     <header class="navigation-desktop">
         <nav class="navbar">

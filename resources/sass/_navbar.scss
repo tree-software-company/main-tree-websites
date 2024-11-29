@@ -75,94 +75,93 @@
     }
 }
 
-.en-us {
+.light {
     .navbar {
-        background-color: $navbar-bg-color; 
+        background-color: $navbar-bg-color-light; 
         .logo a {
-            color: $navbar-text-color; 
+            color: $navbar-text-color-light; 
         }
 
         .navigation-desktop {
 
             a {
-                color: $navbar-text-color; 
+                color: $navbar-text-color-light; 
                 &:hover {
-                    color: $navbar-text-color;
+                    color: $navbar-text-color-light;
                 }
             }
 
             .search, .account, .software {
 
                 .search-dropdown, .account-dropdown, .software-dropdown {
-                    background-color: $navbar-bg-color;
+                    background-color: $navbar-bg-color-light;
                     border: 1px solid $c-gray;
                 }
 
                 button {
-                    color: $navbar-text-color;
+                    color: $navbar-text-color-light;
                 }
             }
         }
     }
 
     .search-dropdown, .account-dropdown, .software-dropdown {
-        background-color: $navbar-bg-color; 
+        background-color: $navbar-bg-color-light; 
         border: 1px solid $c-gray;
 
         a {
-            color: $navbar-text-color; 
+            color: $navbar-text-color-light; 
 
             &:hover {
-                background-color: $navbar-link-hover-color; 
-                color: $navbar-text-color; 
+                background-color: $navbar-link-hover-color-light; 
+                color: $navbar-text-color-light; 
             }
         }
     }
     
 }
 
-.pl {
+.dark {
     .navbar {
-        background-color: $navbar-pl-bg-color; 
+        background-color: $navbar-bg-color-dark; 
 
         .logo a {
-            color: $navbar-pl-text-color; 
+            color: $navbar-text-color-dark; 
         }
 
         .navigation-desktop {
 
             a {
-                color: $navbar-pl-text-color; 
+                color: $navbar-text-color-dark; 
                 &:hover {
-                    color: $navbar-pl-text-color;
+                    color: $navbar-text-color-dark;
                 }
             }
 
             .search, .account, .software {
 
                 .search-dropdown, .account-dropdown, .software-dropdown {
-                    background-color: $navbar-pl-bg-color;
+                    background-color: $navbar-bg-color-dark;
                     border: 1px solid $c-gray;
-                    z-index: 1;
                 }
 
                 button {
-                    color: $navbar-pl-text-color;
+                    color: $navbar-text-color-dark;
                 }
             }
         }
     }
 
     .search-dropdown, .account-dropdown, .software-dropdown {
-        background-color: $navbar-pl-bg-color; 
+        background-color: $navbar-bg-color-dark; 
         border: 1px solid $c-gray; 
         
         a {
-            color: $navbar-pl-text-color; 
+            color: $navbar-text-color-dark; 
 
             &:hover {
-                background-color: $navbar-pl-link-hover-color; 
-                color: $navbar-pl-text-color;
+                background-color: $navbar-link-hover-color-dark; 
+                color: $navbar-text-color-dark;
             }
         }
     }
@@ -189,7 +188,6 @@
             top: 0;
             width: 100%;
             height: 100vh;
-            background-color: $navbar-pl-bg-color;
             flex-direction: column;
             opacity: 1;
             z-index: 1000;
@@ -215,14 +213,12 @@
                     }
 
                     .accordion-navigation__item {
-                        color: $navbar-text-color;
                         padding: 10px;
                         font-size: 15px;
                         text-decoration: none;
                     }
                       
                     .accordion-header-navigation {
-                        color: $navbar-text-color;
                         width: 100%;
                         text-align: left;
                         border: none;
@@ -247,7 +243,6 @@
                         max-height: 500px;
                     }
                     .support-navigation-mobile {
-                        color: $navbar-text-color;
                         text-decoration: none;
                         font-size: 20px;
                     } 

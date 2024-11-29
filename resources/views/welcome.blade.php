@@ -1,30 +1,77 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="banners">
-        <div class="banner">Banner 1</div>
-        <div class="banner">Banner 2</div>
-        <div class="banner">Banner 3</div>
-    </div>
+        <div class="banners">
+            @if(isset($data['Banners'][0]))
+                <a href="{{$data['Banners'][0][1]}}" class="banner">
+                    <img src="{{$data['Banners'][0][0]}}" width="100%" />
+                    <div class="banner-text">{{ __('message.learnMore') }}</div>
+                </a>
+            @endif
+
+            @if(isset($data['Banners'][1]))
+                <a href="{{$data['Banners'][1][1]}}" class="banner">
+                    <img src="{{$data['Banners'][1][0]}}" width="100%" />
+                    <div class="banner-text">{{ __('message.learnMore') }}</div>
+                </a>
+            @endif
+
+            @if(isset($data['Banners'][2]))
+                <a href="{{$data['Banners'][2][1]}}" class="banner">
+                    <img src="{{$data['Banners'][2][0]}}" width="100%" />
+                    <div class="banner-text">{{ __('message.learnMore') }}</div>
+                </a>
+            @endif
+        </div>
     
     <div class="products">
         <div class="row">
-            <div class="column">Product 1</div>
-            <div class="column">Product 2</div>
+            @if(isset($data['Banners'][3]))
+                <a href="{{$data['Banners'][3][1]}}" class="column">
+                    <img src="{{$data['Banners'][3][0]}}" width="100%" />
+                    <div class="column-text">{{ __('message.learnMore') }}</div>
+                </a>
+            @endif
+            @if(isset($data['Banners'][4]))
+                <a href="{{$data['Banners'][4][1]}}" class="column">
+                    <img src="{{$data['Banners'][4][0]}}" width="100%" />
+                    <div class="column-text">{{ __('message.learnMore') }}</div>
+                </a>
+            @endif
         </div>
         <div class="row">
-            <div class="column">Product 3</div>
-            <div class="column">Product 4</div>
+            @if(isset($data['Banners'][5]))
+                <a href="{{$data['Banners'][5][1]}}" class="column">
+                    <img src="{{$data['Banners'][5][0]}}" width="100%" />
+                    <div class="column-text">{{ __('message.learnMore') }}</div>
+                </a>
+            @endif
+            @if(isset($data['Banners'][6]))
+                <a href="{{$data['Banners'][6][1]}}" class="column">
+                    <img src="{{$data['Banners'][6][0]}}" width="100%" />
+                    <div class="column-text">{{ __('message.learnMore') }}</div>
+                </a>
+            @endif
         </div>
         <div class="row">
-            <div class="column">Product 5</div>
-            <div class="column">Product 6</div>
+            @if(isset($data['Banners'][7]))
+                <a href="{{$data['Banners'][7][1]}}" class="column">
+                    <img src="{{$data['Banners'][7][0]}}" width="100%" />
+                    <div class="column-text">{{ __('message.learnMore') }}</div>
+                </a>
+            @endif
+            @if(isset($data['Banners'][8]))
+                <a href="{{$data['Banners'][8][1]}}" class="column">
+                    <img src="{{$data['Banners'][8][0]}}" width="100%" />
+                    <div class="column-text">{{ __('message.learnMore') }}</div>
+                </a>
+            @endif
         </div>
     </div>
 
     <div class="sliders">
-        <div class="slider long-slider">Long Slider</div>
-        <div class="slider short-slider">Short Slider</div>
+        <div class="slider long-slider">Short Slider</div>
+        <div class="slider short-slider">Long Slider</div>
     </div>
 @endsection
 

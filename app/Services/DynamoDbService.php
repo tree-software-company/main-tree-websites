@@ -135,4 +135,23 @@ class DynamoDbService
 
         return $unmarshalledItems;
     }
+
+    public function getAllData($tableName)
+    {
+        try {
+            // Skanujemy całą tabelę bez filtrów
+            $result = $this->dynamoDb->scan([
+                'TableName' => $tableName,
+            ]);
+
+            // Jeśli są wyniki, zwracamy je po unmarshalingu
+            if (isset($result['Items']) && count($result['Items']) > 0) {
+                return $this->unmarshalItems($result['Items']);
+            }
+
+            return [];  // Jeśli brak wyników
+        } catch (\Aws\Exception\AwsException $e) {
+            dd('Error: ' . $e->getMessage());
+        }
+    }
 }

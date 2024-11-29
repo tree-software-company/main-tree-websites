@@ -20,6 +20,8 @@ class LandingPageController extends Controller
     {
         // Wywołanie funkcji i pobranie danych na podstawie 'url'
         $data = $this->dynamoDBService->getDataByUrl('main-website', $url);
+
+        $page = $this->dynamoDBService->getAllData('main-website');
         
         // Jeśli dane zostały znalezione
         if ($data) {
@@ -29,8 +31,11 @@ class LandingPageController extends Controller
             // Ustawienie lokalizacji
             App::setLocale($lang);
 
-            // Zwracamy widok na podstawie wartości 'controller_name' z danych
-            return view($data['controller_name'], ['data' => $data]);
+            if($page){
+                return view($data['controller_name'], ['data' => $data, 'page' => $page]);
+            } else {
+                return view($data['controller_name'], ['data' => $data]);
+            }
         }
 
         // Jeśli nie znaleziono danych, zwróć 404
