@@ -21,4 +21,5 @@ return [
     'websiteTerms' => 'Website Terms',
     'homePage' => 'Home Page',
     'learnMore' => 'Learn More',
+    'contactUsToLearnMore' => 'Contact Us to Learn More',
 ];

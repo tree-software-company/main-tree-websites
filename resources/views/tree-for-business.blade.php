@@ -3,23 +3,23 @@
 @section('content')
     <div class="cooperation-section">
         <div class="container">
-            <h1>Cooperation with Us</h1>
+            <h1>{{ $data['title'] }}</h1>
             <p>
-                Are you part of the beauty industry looking to enhance your customer experience and streamline your operations?  
-                Our state-of-the-art booking system is designed to simplify scheduling and provide a seamless user experience for both businesses and their clients.
+                {{ $data['short_description_1'] }}
             </p>
-            <h2>What We Offer</h2>
+            <h2>{{ $data['title_section_1'] }}</h2>
             <ul>
-                <li>Effortless appointment management for salons, spas, and beauty professionals.</li>
-                <li>Customizable solutions tailored to your unique business needs.</li>
-                <li>Multi-language support to cater to a diverse clientele.</li>
-                <li>Mobile-friendly interface for convenient access anytime, anywhere.</li>
+                @if($data['list_section_1'])
+                    @foreach($data['list_section_1'] as $list)
+                        <li>{{ $list }}</li>
+                    @endforeach
+                @endif
             </ul>
             <p>
-                Partner with us to revolutionize the way you manage your business and delight your customers with a hassle-free booking experience.
+                {{ $data['short_description_2'] }}
             </p>
             <div class="cta-button">
-                <a href="/contact" class="btn-primary">Contact Us to Learn More</a>
+                <a href="{{ $data['lang'] }}/contact" class="btn-primary">{{ __('message.contactUsToLearnMore') }}</a>
             </div>
         </div>
     </div>

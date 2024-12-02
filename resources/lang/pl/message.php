@@ -21,4 +21,5 @@ return [
     'websiteTerms' => 'Warunki korzystania z witryny',
     'homePage' => 'Strona główna',
     'learnMore' => 'Dowiedz się więcej',
+    'contactUsToLearnMore' => 'Skontaktuj się z nami, aby dowiedzieć się więcej',
 ];

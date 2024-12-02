@@ -3,15 +3,16 @@
 @section('content')
     <div class="support-youth">
         <div class="container">
-            <h1>How We Support Young People</h1>
+            <h1>{{ $data['title'] }}</h1>
             <p>
-                Our company is dedicated to empowering the next generation by providing opportunities, mentorships, 
-                and resources to help them thrive in their careers.
+                {{ $data['short_description_1'] }}
             </p>
             <ul class="initiatives">
-                <li>Mentorship programs</li>
-                <li>Scholarship opportunities</li>
-                <li>Internships with hands-on experience</li>
+                @if($data['list_section_1'])
+                    @foreach($data['list_section_1'] as $list)
+                        <li>{{ $list }}</li>
+                    @endforeach
+                @endif
             </ul>
         </div>
     </div>
