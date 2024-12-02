@@ -2,13 +2,13 @@
 
 @section('content')
     <div class="contact-page">
-        <h1>Contact Us</h1>
+        <h1>{{ $data['title'] }}</h1>
 
         @if (session('success'))
             <p class="success">{{ session('success') }}</p>
         @endif
 
-        <form action="#" method="POST">
+        <form action="{{ route('contact.submit') }}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="name">Name:</label>

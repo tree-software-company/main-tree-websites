@@ -2,10 +2,9 @@
 
 @section('content')
 <div class="legal-document">
-    <h1>{{ __('message.privacyPolicy') }}</h1>
+    <h1>{{ $data['title'] }}</h1>
     <span>
-        <!-- Your privacy policy text goes here -->
-        {{ __('Your privacy policy content in a span.') }}
+        {{ $data['legal_document'] }}
     </span>
 </div>
 @endsection

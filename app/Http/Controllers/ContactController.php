@@ -1,33 +1,31 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Services\DynamoDbService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
-    // Display the contact form
-    public function show()
+    protected $dynamoDbService;
+
+    public function __construct(DynamoDbService $dynamoDbService)
     {
-        return view('contact');
+        $this->dynamoDbService = $dynamoDbService;
     }
 
-    // Handle the form submission
-    public function submit(Request $request)
+    public function submitForm(Request $request)
     {
+        // Walidacja danych formularza
         $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'message' => 'required|string|min:10',
+            'name'    => 'required|string|max:255',
+            'email'   => 'required|email|max:255',
+            'message' => 'required|string',
         ]);
 
-        // Example: Send an email or save to the database
-        Mail::raw($validatedData['message'], function ($message) use ($validatedData) {
-            $message->to('support@example.com')
-                ->subject('New Contact Form Submission')
-                ->from($validatedData['email'], $validatedData['name']);
-        });
+        // Zapisanie danych do DynamoDB
+        $this->dynamoDbService->saveFormSubmission($validatedData);
 
-        return back()->with('success', 'Your message has been sent!');
+        // Przekierowanie z komunikatem
+        return redirect()->back()->with('success', 'Your message has been sent successfully!');
     }
 }

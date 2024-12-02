@@ -17,6 +17,8 @@ Route::get('/en-us', function () {
     return redirect('/');
 });
 
+Route::post('/contact', [ContactController::class, 'submitForm'])->name('contact.submit');
+
 Auth::routes();
 
 Route::get('/en-us/{slug}', function ($slug) {

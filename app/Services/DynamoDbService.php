@@ -122,6 +122,29 @@ class DynamoDbService
             dd('Error: ' . $e->getMessage());
         }
     }
+
+    public function saveFormSubmission($data)
+    {
+        try {
+            // Generowanie unikalnego ID dla każdego zgłoszenia
+            $submissionId = (string) Guid::uuid4();
+
+            $item = [
+                'submission_id' => ['S' => $submissionId],
+                'name'          => ['S' => $data['name']],
+                'email'         => ['S' => $data['email']],
+                'message'       => ['S' => $data['message']],
+                'created_at'    => ['S' => now()->toIso8601String()],
+            ];
+
+            return $this->dynamoDb->putItem([
+                'TableName' => 'form_website', // Tabela w DynamoDB
+                'Item'      => $this->marshalItem($item),
+            ]);
+        } catch (\Aws\Exception\AwsException $e) {
+            dd('Error: ' . $e->getMessage());
+        }
+    }
     
     // Funkcja do unmarshalingu wyników
     private function unmarshalItems($items)
