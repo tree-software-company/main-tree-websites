@@ -50,7 +50,7 @@
     <div class="registration-form">
       <span class="icon-cross close-form"></span> 
       <h2>Registration</h2>
-      <form action="#" method="POST">
+      <form action="{{ route('registration-form.submit') }}" method="POST">
         @csrf
         <div class="form-group">
           <label for="name">Full Name</label>

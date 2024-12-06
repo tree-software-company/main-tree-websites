@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Aws\DynamoDb\DynamoDbClient;
 use Aws\DynamoDb\Marshaler;
+use Ramsey\Uuid\Guid\Guid;
 
 class DynamoDbService
 {
@@ -45,10 +46,10 @@ class DynamoDbService
         ]);
     }
 
-    // Konwersja danych na odpowiedni format
     private function marshalItem(array $item)
     {
-        return \Aws\DynamoDb\Marshaler::marshalItem($item);
+        $marshaler = new Marshaler();  // Tworzymy instancję Marshaler
+        return $marshaler->marshalItem($item);  // Wywołujemy metodę na instancji obiektu
     }
 
     public function getLangSetting()
@@ -126,20 +127,52 @@ class DynamoDbService
     public function saveFormSubmission($data)
     {
         try {
-            // Generowanie unikalnego ID dla każdego zgłoszenia
-            $submissionId = (string) Guid::uuid4();
+            $marshaler = new Marshaler();
+
+            // Generate a unique submission ID
+            $submissionId = round(microtime(true) * 1000);
 
             $item = [
-                'submission_id' => ['S' => $submissionId],
-                'name'          => ['S' => $data['name']],
-                'email'         => ['S' => $data['email']],
-                'message'       => ['S' => $data['message']],
-                'created_at'    => ['S' => now()->toIso8601String()],
+                'id'         => (int) $submissionId,
+                'name'       => $data['name'],
+                'email'      => $data['email'],
+                'message'    => $data['message'],
+                'created_at' => now()->toIso8601String(),
             ];
 
+            // Marshal the item
+            $item = $marshaler->marshalItem($item);
+
             return $this->dynamoDb->putItem([
-                'TableName' => 'form_website', // Tabela w DynamoDB
-                'Item'      => $this->marshalItem($item),
+                'TableName' => 'form_website',
+                'Item'      => $item,
+            ]);
+        } catch (\Aws\Exception\AwsException $e) {
+            dd('Error: ' . $e->getMessage());
+        }
+    }
+
+    public function saveFormLandingPageNewsletter($data)
+    {
+        try {
+            $marshaler = new Marshaler();
+
+            // Generate a unique submission ID
+            $submissionId = round(microtime(true) * 1000);
+
+            $item = [
+                'id'         => (int) $submissionId,
+                'name'       => $data['name'],
+                'email'      => $data['email'],
+                'created_at' => now()->toIso8601String(),
+            ];
+
+            // Marshal the item
+            $item = $marshaler->marshalItem($item);
+
+            return $this->dynamoDb->putItem([
+                'TableName' => 'landing-page-newsletter',
+                'Item'      => $item,
             ]);
         } catch (\Aws\Exception\AwsException $e) {
             dd('Error: ' . $e->getMessage());

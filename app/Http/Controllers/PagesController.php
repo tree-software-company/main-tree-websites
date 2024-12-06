@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use App\Services\DynamoDbService;
 use Illuminate\Support\Facades\App;
 
-class LandingPageController extends Controller
+class PagesController extends Controller
 {
     protected $dynamoDBService;
 

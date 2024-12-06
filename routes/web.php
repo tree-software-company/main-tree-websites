@@ -1,11 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\PagesController;
 use App\Http\Controllers\TreeForBusinessController;
 use App\Http\Controllers\TreeForEducationController;
 use App\Http\Controllers\ContactController;
-use App\Http\Controllers\LegalController;
+use App\Http\Controllers\LandingPageList;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\HomepageController;
@@ -19,6 +19,8 @@ Route::get('/en-us', function () {
 
 Route::post('/contact', [ContactController::class, 'submitForm'])->name('contact.submit');
 
+Route::post('/registration-form', [LandingPageList::class, 'submitForm'])->name('registration-form.submit');
+
 Auth::routes();
 
 Route::get('/en-us/{slug}', function ($slug) {
@@ -27,7 +29,7 @@ Route::get('/en-us/{slug}', function ($slug) {
 })->where('slug', '.*');
 
 // Define route for '/landing-page' without locale prefix (fallback for en-us)
-Route::get('/{url}', [LandingPageController::class, 'show'])->where('url', '.*');
+Route::get('/{url}', [PagesController::class, 'show'])->where('url', '.*');
 
 // Fallback route in case of invalid locale
 Route::fallback(function () {
