@@ -164,6 +164,7 @@ class DynamoDbService
                 'id'         => (int) $submissionId,
                 'name'       => $data['name'],
                 'email'      => $data['email'],
+                'product'    => $data['product'],
                 'created_at' => now()->toIso8601String(),
             ];
 

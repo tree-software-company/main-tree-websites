@@ -50,7 +50,7 @@
     <div class="registration-form">
       <span class="icon-cross close-form"></span> 
       <h2>Registration</h2>
-      <form action="{{ route('registration-form.submit') }}" method="POST">
+      <form action="{{ route('register-product.submit') }}" method="POST">
         @csrf
         <div class="form-group">
           <label for="name">Full Name</label>
@@ -60,6 +60,7 @@
           <label for="email">Email Address</label>
           <input type="email" name="email" id="email" required>
         </div>
+        <input type="hidden" name="product" value="{{ $data['subpage_name'] }}">
         <button type="submit" class="btn-submit">Register</button>
       </form>
     </div>
@@ -67,4 +68,3 @@
 </div>
 
 @endsection
-    

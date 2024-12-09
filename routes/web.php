@@ -17,18 +17,18 @@ Route::get('/en-us', function () {
     return redirect('/');
 });
 
-Route::post('/contact', [ContactController::class, 'submitForm'])->name('contact.submit');
-
-Route::post('/registration-form', [LandingPageList::class, 'submitForm'])->name('registration-form.submit');
-
 Auth::routes();
 
 Route::get('/en-us/{slug}', function ($slug) {
-    // Tworzymy przekierowanie na nową ścieżkę bez "en-us"
-    return redirect("/$slug", 301); // Używamy kodu HTTP 301 dla permanentnego przekierowania
+    return redirect("/$slug", 301);
 })->where('slug', '.*');
 
+Route::post('/contact', [ContactController::class, 'submitForm'])->name('contact.submit');
+
+Route::post('/register-product', [LandingPageList::class, 'submitForm'])->name('register-product.submit')->where('url', '.*');
+
 // Define route for '/landing-page' without locale prefix (fallback for en-us)
+
 Route::get('/{url}', [PagesController::class, 'show'])->where('url', '.*');
 
 // Fallback route in case of invalid locale
