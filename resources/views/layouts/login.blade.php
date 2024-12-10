@@ -1,24 +1,22 @@
 <?php
     $favicon = 'logo-background.jpeg';
     $faviconUrl = Storage::disk('s3')->url($favicon);
-    $user = auth()->user();
 ?>
 
 <!DOCTYPE html>
 
-<html lang="{{ $data['lang'] }}">
+<html lang="{{ app()->getLocale() }}">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="{{ $faviconUrl }}" type="image/x-icon">
-    <title>{{$data['meta_title']}}</title>
-    <meta name="description" content="{{$data['meta_description']}}">
+    <title>Tree</title>
 
     @viteReactRefresh
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
-<body class="{{ $data['lang'] }} {{ $data['nav_color']}}">
+<body class="{{ app()->getLocale() }} light">
 
     <header class="navigation-desktop">
         <nav class="navbar">
@@ -50,7 +48,7 @@
                     <div class="account-dropdown">
                         @if (Route::has('login'))
                             @auth
-                                <a href="{{ url('/home') }}" class="navigation-desktop-item home">Home</a>
+                                <span>udalo sie</span>
                             @else
                                 <a href="{{ route('login') }}" class="navigation-desktop-item log-in">Log in</a>
                                 @if (Route::has('register'))
