@@ -6,6 +6,9 @@ use Aws\DynamoDb\DynamoDbClient;
 use Aws\DynamoDb\Marshaler;
 use Ramsey\Uuid\Guid\Guid;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+
 
 class DynamoDbService
 {
@@ -71,6 +74,28 @@ class DynamoDbService
         ];
     }
 
+    public function loginUser($email, $password)
+    {
+        $user = $this->findUserByEmail($email);
+
+        if ($user) {
+            $hashedPassword = $user['password']['S'];
+
+            if (Hash::check($password, $hashedPassword)) {
+                $userInstance = new User();
+                $userInstance->id = $user['user_id']['N'];
+                $userInstance->email = $user['email']['S'];
+                $userInstance->name = $user['name']['S']; // Include the user's name
+
+                Auth::login($userInstance);
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public function findUserByEmail($email)
     {
         try {
@@ -82,7 +107,7 @@ class DynamoDbService
                     ':email' => ['S' => $email], // Przeszukujemy po 'email'
                 ],
             ]);
-    
+
             // Jeśli znaleziono użytkownika
             if (count($result['Items']) > 0) {
                 return $result['Items'][0]; // Zwracamy pierwszego użytkownika
@@ -94,33 +119,25 @@ class DynamoDbService
             return null;
         }
     }
-
-    /**
-     * Logowanie użytkownika
-     *
-     * @param string $email
-     * @param string $password
-     * @return array|null
-     */
-    public function loginUser($email, $password)
+    
+    public function findUserById($id)
     {
-        // Pobieranie użytkownika na podstawie emaila
-        $user = $this->findUserByEmail($email);
+        try {
+            $result = $this->dynamoDb->getItem([
+                'TableName' => 'users',
+                'Key' => [
+                    'user_id' => ['N' => (string) $id],
+                ],
+            ]);
 
-        if ($user) {
-            // Hasło zapisane w DynamoDB
-            $hashedPassword = $user['password']['S'];
-
-            // Sprawdzanie, czy hasło pasuje
-            if (Hash::check($password, $hashedPassword)) {
-                return [
-                    'email' => $user['email']['S'],
-                    'password' => $hashedPassword,
-                ];
+            if (isset($result['Item'])) {
+                return $result['Item'];
+            } else {
+                return null;
             }
+        } catch (\Aws\Exception\AwsException $e) {
+            return null;
         }
-
-        return null; // Zwracamy null, jeśli login się nie powiódł
     }
 
     // Metoda listująca dostępne tabele w DynamoDB
@@ -312,4 +329,22 @@ class DynamoDbService
             dd('Error: ' . $e->getMessage());
         }
     }
+
+    public function getAllPages()
+{
+    try {
+        $result = $this->dynamoDb->scan([
+            'TableName' => 'main-website',  
+        ]);
+
+        if (isset($result['Items']) && count($result['Items']) > 0) {
+            return $this->unmarshalItems($result['Items']);
+        }
+
+        return []; 
+    } catch (\Aws\Exception\AwsException $e) {
+        dd('Error: ' . $e->getMessage());
+    }
+}
+
 }

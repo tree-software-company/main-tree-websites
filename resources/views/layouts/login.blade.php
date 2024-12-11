@@ -48,7 +48,7 @@
                     <div class="account-dropdown">
                         @if (Route::has('login'))
                             @auth
-                                <span>udalo sie</span>
+                                <a href="{{ url('/home') }}" class="navigation-desktop-item home">Home</a>
                             @else
                                 <a href="{{ route('login') }}" class="navigation-desktop-item log-in">Log in</a>
                                 @if (Route::has('register'))

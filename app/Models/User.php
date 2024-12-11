@@ -4,14 +4,21 @@ namespace App\Models;
 
 use Aws\DynamoDb\DynamoDbClient;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
 
-class User extends Authenticatable
+class User implements Authenticatable
 {
-    use HasApiTokens, Notifiable;
+    use AuthenticatableTrait, HasApiTokens, Notifiable;
+
+    public $id;
+    public $email;
+    public $name;
+    public $password;
+    protected $rememberToken;
 
     protected $connection = 'dynamodb';
     protected $table = 'users';
@@ -52,5 +59,41 @@ class User extends Authenticatable
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    public function getAuthIdentifierName()
+    {
+        return 'id';
+    }
+
+    public function getAuthIdentifier()
+    {
+        return $this->id;
+    }
+
+    public function getAuthPassword()
+    {
+        return $this->password;
+    }
+
+    public function getRememberToken()
+    {
+        return $this->rememberToken;
+    }
+
+    public function setRememberToken($value)
+    {
+        $this->rememberToken = $value;
+    }
+
+    public function getRememberTokenName()
+    {
+        return 'remember_token';
+    }
+
+    // Add the missing getKeyName method
+    public function getKeyName()
+    {
+        return 'id';
     }
 }

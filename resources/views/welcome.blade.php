@@ -71,7 +71,11 @@
 
     <div class="sliders">
         <div class="slider long-slider">Short Slider</div>
-        <div class="slider short-slider">Long Slider</div>
+        <div class="slider long-slider">
+            <div><img src="https://website-tree-main-asset.s3.us-west-1.amazonaws.com/logo-background.jpeg" alt="Image 1" /></div>
+            <div><img src="https://website-tree-main-asset.s3.us-west-1.amazonaws.com/logo-background.jpeg" alt="Image 2" /></div>
+            <div><img src="https://website-tree-main-asset.s3.us-west-1.amazonaws.com/logo-background.jpeg" alt="Image 3" /></div>
+        </div>
     </div>
 @endsection
 
