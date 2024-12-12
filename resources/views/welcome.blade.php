@@ -70,11 +70,15 @@
     </div>
 
     <div class="sliders">
-        <div class="slider long-slider">Short Slider</div>
+        <div class="long-slider">Short Slider</div>
         <div class="slider long-slider">
-            <div><img src="https://website-tree-main-asset.s3.us-west-1.amazonaws.com/logo-background.jpeg" alt="Image 1" /></div>
-            <div><img src="https://website-tree-main-asset.s3.us-west-1.amazonaws.com/logo-background.jpeg" alt="Image 2" /></div>
-            <div><img src="https://website-tree-main-asset.s3.us-west-1.amazonaws.com/logo-background.jpeg" alt="Image 3" /></div>
+            @if(isset($data['long_slider']))
+                @foreach($data['long_slider'] as $slider)
+                    <a href="{{$slider[0]}}" class="slider-item">
+                        <img src="{{$slider[1]}}" />
+                    </a>
+                @endforeach
+            @endif
         </div>
     </div>
 @endsection
