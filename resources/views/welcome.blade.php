@@ -84,5 +84,5 @@
 @endsection
 
 @section('Footercontent')
-    <span class="text">Footer Content</span>
+    <span class="text">{!! nl2br(e($data['footer_content'])) !!}</span>
 @endsection
