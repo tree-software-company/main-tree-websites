@@ -1,25 +1,25 @@
-/* Ustawienie dla samego slidera */
+
 .long-slider {
-    display: flex;  /* Użyj Flexboxa do wyświetlania elementów obok siebie */
-    overflow: hidden; /* Ukrywa niepotrzebne elementy poza kontenerem */
+    display: flex;  
+    overflow: hidden; 
 }
 
 .slick-slide {
-    display: inline-block; /* Sprawia, że elementy są obok siebie */
-    width: 100%;  /* Możesz dostosować tę szerokość, np. do 50% lub 33% zależnie od liczby obrazków */
+    display: inline-block;
+    width: 100%; 
 }
 
 .slick-slide img {
-    width: 100%; /* Szerokość obrazów */
-    height: auto; /* Zachowuje proporcje obrazów */
+    width: 100%; 
+    height: auto;
 }
 
-/* Możesz także dodać style dla kropek */
+
 .slick-dots {
-    bottom: 10px; /* Ustawienie pozycji kropek */
-}
+    bottom: 10px;
+} 
 
-/* Stylowanie dla kontenera, jeśli chcesz dodać jakieś marginesy */
+
 .sliders {
     width: 100%;
     margin-top: 20px;

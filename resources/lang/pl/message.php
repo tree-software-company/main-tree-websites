@@ -22,4 +22,9 @@ return [
     'homePage' => 'Strona główna',
     'learnMore' => 'Dowiedz się więcej',
     'contactUsToLearnMore' => 'Skontaktuj się z nami, aby dowiedzieć się więcej',
+    'RegisterNow' => 'Zarejestruj się teraz',
+    'Register' => 'Zarejestruj',
+    'Registration' => 'Rejestracja',
+    'FullName' => 'Imię i nazwisko',
+    'Email' => 'Email',
 ];

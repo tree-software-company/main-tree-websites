@@ -25,7 +25,6 @@
         @foreach($data['photos_src_section_2'] as $ad)
           <div class="ad">
             <img src="{{$ad[0]}}" alt="{{ $ad[1] }}">
-            <p> {{$ad[2]}} </p>
           </div>
         @endforeach
       </div>
@@ -45,23 +44,23 @@
       </div>
     </div>
 
-    <button class="btn-ota">Register Now</button>
+    <button class="btn-ota">{{ __('message.RegisterNow') }}</button>
 
     <div class="registration-form">
       <span class="icon-cross close-form"></span> 
-      <h2>Registration</h2>
+      <h2>{{ __('message.Registration') }}</h2>
       <form action="{{ route('register-product.submit') }}" method="POST">
         @csrf
         <div class="form-group">
-          <label for="name">Full Name</label>
+          <label for="name">{{ __('message.FullName') }}</label>
           <input type="text" name="name" id="name" required>
         </div>
         <div class="form-group">
-          <label for="email">Email Address</label>
+          <label for="email">{{ __('message.Email') }}</label>
           <input type="email" name="email" id="email" required>
         </div>
         <input type="hidden" name="product" value="{{ $data['subpage_name'] }}">
-        <button type="submit" class="btn-submit">Register</button>
+        <button type="submit" class="btn-submit">{{ __('message.Register') }}</button>
       </form>
     </div>
   </div>

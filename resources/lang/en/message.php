@@ -22,4 +22,10 @@ return [
     'homePage' => 'Home Page',
     'learnMore' => 'Learn More',
     'contactUsToLearnMore' => 'Contact Us to Learn More',
+    'RegisterNow' => 'Register now',
+    'Register' => 'Register',
+    'Registration' => 'Registration',
+    'FullName' => 'Full Name',
+    'Email' => 'Email',
+
 ];
