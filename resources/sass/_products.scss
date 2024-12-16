@@ -10,7 +10,15 @@
             padding: 20px;
             background-color: $background-color;
             border: 1px solid #ddd;
+            color: $font-color;
             text-align: center;
+            text-decoration: none;
+            &-text {
+                position: relative;
+                background-color: $c-gray;
+                border-radius: 30px;
+                padding: 15px;
+            }
         }
     }
 }

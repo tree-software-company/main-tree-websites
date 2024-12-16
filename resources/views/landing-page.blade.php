@@ -37,7 +37,7 @@
           <div class="accordion-item">
             <button class="accordion-question">{{ $faq[0] }}</button>
             <div class="accordion-answer">
-              <p>{{ $faq[1] }}</p>
+              <p>{!! nl2br(e($faq[1])) !!}</p>
             </div>
           </div>
         @endforeach
