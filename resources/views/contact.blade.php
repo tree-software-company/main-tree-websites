@@ -11,20 +11,20 @@
         <form action="{{ route('contact.submit') }}" method="POST">
             @csrf
             <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" value="{{ old('name') }}" required>
+                <label for="name">{{ __('message.FullName') }}:</label>
+                <input type="text" id="name" name="name" value="{{ __('message.FullName') }}" required>
                 @error('name') <p class="error">{{ $message }}</p> @enderror
             </div>
 
             <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" value="{{ old('email') }}" required>
+                <label for="email">{{ __('message.Email') }}:</label>
+                <input type="email" id="email" name="email" value="{{ __('message.Email') }}" required>
                 @error('email') <p class="error">{{ $message }}</p> @enderror
             </div>
 
             <div class="form-group">
-                <label for="message">Message:</label>
-                <textarea id="message" name="message" rows="5" required>{{ old('message') }}</textarea>
+                <label for="message">{{ __('message.message') }}:</label>
+                <textarea id="message" name="message" rows="5" required>{{ __('message.message') }}</textarea>
                 @error('message') <p class="error">{{ $message }}</p> @enderror
             </div>
 

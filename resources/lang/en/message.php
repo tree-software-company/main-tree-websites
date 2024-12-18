@@ -27,5 +27,5 @@ return [
     'Registration' => 'Registration',
     'FullName' => 'Full Name',
     'Email' => 'Email',
-
+    'message' => 'Message',
 ];

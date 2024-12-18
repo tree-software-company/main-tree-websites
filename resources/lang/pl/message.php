@@ -27,4 +27,5 @@ return [
     'Registration' => 'Rejestracja',
     'FullName' => 'Imię i nazwisko',
     'Email' => 'Email',
+    'message' => 'Wiadomość',
 ];
