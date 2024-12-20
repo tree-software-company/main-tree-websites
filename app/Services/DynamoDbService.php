@@ -8,6 +8,9 @@ use Ramsey\Uuid\Guid\Guid;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
+
+use Exception;
 
 
 class DynamoDbService
@@ -26,12 +29,6 @@ class DynamoDbService
         ]);
     }
 
-    /**
-     * Sprawdzanie, czy użytkownik istnieje w bazie po emailu
-     *
-     * @param string $email
-     * @return bool
-     */
     public function userExistsByEmail($email)
     {
         $result = $this->dynamoDb->scan([
@@ -42,36 +39,70 @@ class DynamoDbService
             ],
         ]);
 
-        return count($result['Items']) > 0;  // Zwraca true, jeśli użytkownik istnieje
+        return count($result['Items']) > 0; 
+    }
+    
+
+    public function checkPhoneExists($phone)
+    {
+        try {
+            $result = $this->dynamoDb->scan([
+                'TableName' => 'users',
+                'FilterExpression' => 'Phone = :phone',
+                'ExpressionAttributeValues' => [
+                    ':phone' => ['S' => $phone]
+                ]
+            ]);
+
+            return count($result['Items']) > 0; 
+        } catch (\Aws\Exception\AwsException $e) {
+            Log::error('DynamoDB Scan Error: ' . $e->getMessage());
+            return false;
+        }
     }
 
-    /**
-     * Rejestracja nowego użytkownika w DynamoDB
-     *
-     * @param array $data
-     * @return array
-     */
     public function registerUser(array $data)
     {
-        $userId = time(); // Można dostosować generowanie ID
+        if ($this->checkPhoneExists($data['phone'])) {
+            throw new Exception('Numer telefonu jest już zajęty');
+        }
+
+        $userId = time(); 
+
         $hashedPassword = Hash::make($data['password']);
 
-        $this->dynamoDb->putItem([
-            'TableName' => 'users',
-            'Item' => [
-                'user_id' => ['N' => (string) $userId],
-                'name' => ['S' => $data['name']],
-                'email' => ['S' => $data['email']],
-                'password' => ['S' => $hashedPassword],
-            ],
-        ]);
-
-        return [
-            'user_id' => $userId,
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => $hashedPassword
+        $item = [
+            'user_id' => ['N' => (string) $userId],  
+            'email' => ['S' => $data['email']],
+            'phone' => ['S' => $data['phone']],
+            'birthday' => ['S' => $data['birthday']],
+            'first_name' => ['S' => $data['first_name']],
+            'last_name' => ['S' => $data['last_name']],
+            'country' => ['S' => $data['country']],
+            'password' => ['S' => $hashedPassword],  
         ];
+
+        try {
+            $this->dynamoDb->putItem([
+                'TableName' => 'users', 
+                'Item' => $item
+            ]);
+
+            return [
+                'user_id' => $userId,
+                'email' => $data['email'],
+                'phone' => $data['phone'],
+                'birthday' => $data['birthday'],
+                'first_name' => $data['first_name'],
+                'last_name' => $data['last_name'],
+                'country' => $data['country'],
+                'password' => $hashedPassword,
+            ];
+
+        } catch (\Aws\Exception\AwsException $e) {
+            Log::error('DynamoDB PutItem Error: ' . $e->getMessage());
+            throw new Exception('Nie udało się zarejestrować użytkownika');
+        }
     }
 
     public function loginUser($email, $password)
@@ -99,23 +130,21 @@ class DynamoDbService
     public function findUserByEmail($email)
     {
         try {
-            // Używamy zapytania 'scan' do przeszukania tabeli na podstawie e-maila
             $result = $this->dynamoDb->scan([
                 'TableName' => 'users',
                 'FilterExpression' => 'email = :email',
                 'ExpressionAttributeValues' => [
-                    ':email' => ['S' => $email], // Przeszukujemy po 'email'
+                    ':email' => ['S' => $email], 
                 ],
             ]);
 
-            // Jeśli znaleziono użytkownika
+
             if (count($result['Items']) > 0) {
-                return $result['Items'][0]; // Zwracamy pierwszego użytkownika
+                return $result['Items'][0];
             } else {
-                return null; // Jeśli nie znaleziono użytkownika
+                return null;
             }
         } catch (\Aws\Exception\AwsException $e) {
-            // Obsługuje błędy AWS, zwróć błąd
             return null;
         }
     }
@@ -140,13 +169,11 @@ class DynamoDbService
         }
     }
 
-    // Metoda listująca dostępne tabele w DynamoDB
     public function listTables()
     {
         return $this->dynamoDb->listTables();
     }
 
-    // Metoda dodająca element do tabeli
     public function putItem($tableName, $item)
     {
         return $this->dynamoDb->putItem([
@@ -155,7 +182,6 @@ class DynamoDbService
         ]);
     }
 
-    // Metoda pobierająca element z tabeli
     public function getItem($tableName, $key)
     {
         return $this->dynamoDb->getItem([
@@ -166,25 +192,23 @@ class DynamoDbService
 
     private function marshalItem(array $item)
     {
-        $marshaler = new Marshaler();  // Tworzymy instancję Marshaler
-        return $marshaler->marshalItem($item);  // Wywołujemy metodę na instancji obiektu
+        $marshaler = new Marshaler(); 
+        return $marshaler->marshalItem($item); 
     }
 
     public function getLangSetting()
     {
         try {
-            // Zakładając, że masz tabelę 'settings' z polem 'lang'
             $result = $this->dynamoDb->scan([
-                'TableName' => 'settings',  // Nazwa tabeli
+                'TableName' => 'settings',
             ]);
 
-            // Sprawdzenie, czy są wyniki
             if (isset($result['Items']) && count($result['Items']) > 0) {
-                $item = $this->unmarshalItems($result['Items'])[0];  // Pobieramy pierwszy rekord
-                return $item['lang'];  // Zakładamy, że pole 'lang' przechowuje kod języka
+                $item = $this->unmarshalItems($result['Items'])[0];  
+                return $item['lang'];  
             }
 
-            return 'en-us';  // Domyślny język, jeśli brak w tabeli
+            return 'en-us'; 
         } catch (\Aws\Exception\AwsException $e) {
             dd('Error: ' . $e->getMessage());
         }
@@ -193,50 +217,46 @@ class DynamoDbService
     public function getData($tableName, $controller)
     {
         try {
-            // Zmieniamy zapytanie na 'Query' zamiast 'Scan'
             $result = $this->dynamoDb->scan([
                 'TableName' => $tableName,
                 'FilterExpression' => 'controller_name = :controller_name',
                 'ExpressionAttributeValues' => [
-                    ':controller_name' => ['S' => $controller],  // 'S' dla ciągów znaków
+                    ':controller_name' => ['S' => $controller], 
                 ],
             ]);
     
-            // Jeśli chcesz tylko jeden rekord, weź pierwszy element
+
             if (count($result['Items']) > 0) {
-                return $this->unmarshalItems($result['Items']); // Zwracamy tylko pierwszy rekord
+                return $this->unmarshalItems($result['Items']); 
             }
     
-            return null; // Jeśli brak wyników
+            return null; 
         } catch (\Aws\Exception\AwsException $e) {
             dd('Error: ' . $e->getMessage());
         }
     }
     
-    // Zmodyfikowana metoda, która nie filtruje już po 'controller_name', tylko po 'url'
     public function getDataByUrl($tableName, $url)
     {
         try {
-            // Używamy tylko 'url' w filtrze, a 'controller_name' zwrócimy jako nazwę widoku
             $result = $this->dynamoDb->scan([
                 'TableName' => $tableName,
                 'FilterExpression' => '#url = :url',
                 'ExpressionAttributeNames' => [
-                    '#url' => 'url', // Alias dla 'url'
+                    '#url' => 'url', 
                 ],
                 'ExpressionAttributeValues' => [
-                    ':url' => ['S' => $url],  // Filtrujemy po url
+                    ':url' => ['S' => $url],  
                 ],
             ]);
     
-            // Jeśli znaleziono dane, zwracamy je
+
             if (count($result['Items']) > 0) {
-                // Zwracamy dane, w tym 'controller_name', które posłuży jako nazwa widoku
                 $unmarshalledData = $this->unmarshalItems($result['Items']);
-                return $unmarshalledData[0];  // Zakładamy, że chcemy tylko pierwszy wynik
+                return $unmarshalledData[0];  
             }
     
-            return null;  // Jeśli brak wyników
+            return null;  
         } catch (\Aws\Exception\AwsException $e) {
             dd('Error: ' . $e->getMessage());
         }
@@ -247,7 +267,6 @@ class DynamoDbService
         try {
             $marshaler = new Marshaler();
 
-            // Generate a unique submission IDAC
             $submissionId = round(microtime(true) * 1000);
 
             $item = [
@@ -298,7 +317,6 @@ class DynamoDbService
         }
     }
     
-    // Funkcja do unmarshalingu wyników
     private function unmarshalItems($items)
     {
         $marshaler = new Marshaler();
@@ -314,17 +332,15 @@ class DynamoDbService
     public function getAllData($tableName)
     {
         try {
-            // Skanujemy całą tabelę bez filtrów
             $result = $this->dynamoDb->scan([
                 'TableName' => $tableName,
             ]);
 
-            // Jeśli są wyniki, zwracamy je po unmarshalingu
             if (isset($result['Items']) && count($result['Items']) > 0) {
                 return $this->unmarshalItems($result['Items']);
             }
 
-            return [];  // Jeśli brak wyników
+            return []; 
         } catch (\Aws\Exception\AwsException $e) {
             dd('Error: ' . $e->getMessage());
         }

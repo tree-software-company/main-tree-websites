@@ -33,15 +33,13 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'birthday' => ['required', 'date', 'before:today'],
+            'phone' => ['required', 'string', 'regex:/^\+?[0-9]{1,3}?[-.\s]?[0-9]{1,4}[-.\s]?[0-9]{1,4}[-.\s]?[0-9]{1,9}$/'],
         ]);
     }
 
-    /**
-     * Utwórz nowego użytkownika po pomyślnej walidacji.
-     *
-     * @param  array  $data
-     * @return \App\Models\User
-     */
     protected function create(array $data)
     {
         // Sprawdzenie, czy użytkownik z danym e-mailem już istnieje
@@ -58,15 +56,21 @@ class RegisterController extends Controller
         // Zwróć nowego użytkownika
         $user = new User([
             'user_id' => $userData['user_id'],
-            'name' => $userData['name'],
+            'first_name' => $userData['first_name'],
+            'last_name' => $userData['last_name'],
+            'country' => $userData['country'],
+            'birthday' => $userData['birthday'],
+            'phone' => $userData['phone'],
             'email' => $userData['email'],
             'password' => $userData['password'],
         ]);
 
         auth()->login($user);
-
+    
         return $user;
     }
+    
+    
 
     /**
      * Zalogowanie użytkownika.
