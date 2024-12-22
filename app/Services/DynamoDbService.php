@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Log;
 
 use Exception;
+use Carbon\Carbon;
 
 
 class DynamoDbService
@@ -45,34 +46,39 @@ class DynamoDbService
 
     public function checkPhoneExists($phone)
     {
-        try {
-            $result = $this->dynamoDb->scan([
-                'TableName' => 'users',
-                'FilterExpression' => 'Phone = :phone',
-                'ExpressionAttributeValues' => [
-                    ':phone' => ['S' => $phone]
-                ]
-            ]);
+        
+        $result = $this->dynamoDb->scan([
+            'TableName' => 'users',
+            'FilterExpression' => 'phone = :phone',
+            'ExpressionAttributeValues' => [
+                ':phone' => ['S' => $phone]
+            ]
+        ]);
 
-            return count($result['Items']) > 0; 
-        } catch (\Aws\Exception\AwsException $e) {
-            Log::error('DynamoDB Scan Error: ' . $e->getMessage());
-            return false;
-        }
+        return count($result['Items']) > 0; 
     }
+    
 
     public function registerUser(array $data)
     {
-        if ($this->checkPhoneExists($data['phone'])) {
-            throw new Exception('Numer telefonu jest już zajęty');
+        $birthday = Carbon::parse($data['birthday']);
+        $age = Carbon::now()->diffInYears($birthday);
+
+        if ($age < 13) {
+            throw new Exception('You must be at least 13 years old to register.');
         }
 
-        $userId = time(); 
+        if ($this->checkPhoneExists($data['phone'])) {
+            throw new Exception('The phone number is already taken.');
+        }
+
+        $userId = time();
 
         $hashedPassword = Hash::make($data['password']);
 
         $item = [
             'user_id' => ['N' => (string) $userId],  
+            'user_type' => ['S' => 'user'],  
             'email' => ['S' => $data['email']],
             'phone' => ['S' => $data['phone']],
             'birthday' => ['S' => $data['birthday']],
@@ -90,6 +96,7 @@ class DynamoDbService
 
             return [
                 'user_id' => $userId,
+                'user_type' => 'user',
                 'email' => $data['email'],
                 'phone' => $data['phone'],
                 'birthday' => $data['birthday'],
@@ -101,7 +108,7 @@ class DynamoDbService
 
         } catch (\Aws\Exception\AwsException $e) {
             Log::error('DynamoDB PutItem Error: ' . $e->getMessage());
-            throw new Exception('Nie udało się zarejestrować użytkownika');
+            throw new Exception('Failed to register the user.');
         }
     }
 
@@ -116,7 +123,7 @@ class DynamoDbService
                 $userInstance = new User();
                 $userInstance->id = $user['user_id']['N'];
                 $userInstance->email = $user['email']['S'];
-                $userInstance->name = $user['name']['S']; // Include the user's name
+                $userInstance->name = $user['name']['S']; 
 
                 Auth::login($userInstance);
 

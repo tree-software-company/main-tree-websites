@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Services\DynamoDbService;  // Poprawiony import
-use App\Models\User; // Upewnij się, że importujesz model User
+use App\Services\DynamoDbService;
+use App\Models\User; 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+
+use Carbon\Carbon;
 
 class RegisterController extends Controller
 {
@@ -21,39 +23,46 @@ class RegisterController extends Controller
         $this->dynamoDbServices = $dynamoDbServices;
     }
 
-    /**
-     * Pobierz walidator dla przychodzącego żądania rejestracji.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
+
     protected function validator(array $data)
     {
+        $birthday = Carbon::parse($data['birthday']);
+        $age = Carbon::now()->diffInYears($birthday);
+    
+        if ($age < 13) {
+            throw \Illuminate\Validation\ValidationException::withMessages([
+                'birthday' => ['You must be at least 13 years old to register.'],
+            ]);
+        }
+    
+        if ($this->dynamoDbServices->checkPhoneExists($data['phone'])) {
+            throw \Illuminate\Validation\ValidationException::withMessages([
+                'phone' => ['The phone number is already taken.'],
+            ]);
+        }
+    
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
             'birthday' => ['required', 'date', 'before:today'],
             'phone' => ['required', 'string', 'regex:/^\+?[0-9]{1,3}?[-.\s]?[0-9]{1,4}[-.\s]?[0-9]{1,4}[-.\s]?[0-9]{1,9}$/'],
         ]);
     }
+    
 
     protected function create(array $data)
     {
-        // Sprawdzenie, czy użytkownik z danym e-mailem już istnieje
+
         if ($this->dynamoDbServices->userExistsByEmail($data['email'])) {
-            // Dodanie błędu, jeśli e-mail już istnieje
             throw \Illuminate\Validation\ValidationException::withMessages([
-                'email' => ['Ten e-mail jest już zajęty.'],
+                'email' => ['This email is already taken.'],
             ]);
         }
     
-        // Zarejestruj użytkownika w DynamoDB
         $userData = $this->dynamoDbServices->registerUser($data);
     
-        // Zwróć nowego użytkownika
         $user = new User([
             'user_id' => $userData['user_id'],
             'first_name' => $userData['first_name'],
@@ -72,18 +81,11 @@ class RegisterController extends Controller
     
     
 
-    /**
-     * Zalogowanie użytkownika.
-     *
-     * @param array $credentials
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function login(array $credentials)
     {
         $user = $this->dynamoDbServices->findUserByEmail($credentials['email']);
 
         if ($user && Hash::check($credentials['password'], $user['password']['S'])) {
-            // Tworzenie obiektu użytkownika, który jest kompatybilny z Laravel Auth
             $user = new User([
                 'user_id' => $user['user_id']['N'],
                 'name' => $user['name']['S'],
@@ -91,10 +93,10 @@ class RegisterController extends Controller
                 'password' => $user['password']['S'],
             ]);
 
-            auth()->login($user); // Teraz używamy obiektu User, który implementuje Authenticatable
+            auth()->login($user); 
             return redirect()->intended($this->redirectTo);
         } else {
-            return back()->withErrors(['email' => 'Nieprawidłowe dane logowania']);
+            return back()->withErrors(['email' => 'Invalid login credentials']);
         }
     }
 }

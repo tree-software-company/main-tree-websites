@@ -11,12 +11,6 @@
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
-                        @if($errors->has('email'))
-                            <div class="alert alert-danger">
-                                {{ $errors->first('email') }}
-                            </div>
-                        @endif
-
 
                         <div class="row mb-3">
                             <label for="first_name" class="col-md-4 col-form-label text-md-end">{{ __('First Name') }}</label>
@@ -62,10 +56,10 @@
 
                         <div class="row mb-3">
                             <label for="birthday" class="col-md-4 col-form-label text-md-end">{{ __('Birthday') }}</label>
-
+                        
                             <div class="col-md-6">
                                 <input id="birthday" type="date" class="form-control @error('birthday') is-invalid @enderror" name="birthday" value="{{ old('birthday') }}" required>
-
+                        
                                 @error('birthday')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -73,6 +67,9 @@
                                 @enderror
                             </div>
                         </div>
+                        
+                        
+                        
 
                         <div class="row mb-3">
                             <label for="phone" class="col-md-4 col-form-label text-md-end">{{ __('Phone Number') }}</label>

@@ -15,7 +15,6 @@
     <title>{{$data['meta_title']}}</title>
     <meta name="description" content="{{$data['meta_description']}}">
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     @viteReactRefresh
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
@@ -204,5 +203,6 @@
         </div>
     </footer>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>
