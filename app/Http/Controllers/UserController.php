@@ -14,30 +14,23 @@ class UserController extends Controller
     {
         $this->dynamoDbService = $dynamoDbService;
 
-        // Tylko zalogowani użytkownicy mogą edytować dane
         $this->middleware('auth');
     }
 
-    // Wyświetlanie danych użytkownika
     public function edit()
     {
-        // Pobieramy użytkownika z DynamoDB
         $user = $this->dynamoDbService->findUserByEmail(Auth::user()->email);
     
-        // Jeśli użytkownik nie istnieje, przekierowujemy na stronę główną
         if (!$user) {
             return redirect('/');
         }
     
-        // Przekazujemy dane użytkownika do widoku
         return view('manage-account', compact('user'));
     }
     
 
-    // Aktualizacja danych użytkownika
     public function update(Request $request)
     {
-        // Walidacja danych wejściowych
         $request->validate([
             'email' => 'required|email',
             'phone' => 'required|numeric',
@@ -48,19 +41,18 @@ class UserController extends Controller
             'password' => 'nullable|min:6|confirmed',
         ]);
 
-        // Przygotowanie danych do aktualizacji
         $data = $request->only(['email', 'phone', 'first_name', 'last_name', 'birthday', 'country']);
         
         if ($request->filled('password')) {
-            $data['password'] = bcrypt($request->password); // Haszowanie nowego hasła
+            $data['password'] = bcrypt($request->password);
         }
 
         try {
-            // Aktualizowanie użytkownika w DynamoDB
             $this->dynamoDbService->updateUser(Auth::id(), $data);
             return redirect()->route('user.edit')->with('success', 'Dane zostały zaktualizowane!');
         } catch (\Exception $e) {
             return back()->with('error', 'Błąd podczas aktualizacji danych: ' . $e->getMessage());
         }
     }
+
 }
