@@ -64,7 +64,6 @@ class DynamoDbUserProvider implements UserProvider
         $user = new User();
         $user->id = $userData['user_id']['N'];
         $user->email = $userData['email']['S'];
-        $user->name = $userData['name']['S'];
         $user->password = $userData['password']['S'];
 
         return $user;

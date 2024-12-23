@@ -28,4 +28,5 @@ return [
     'FullName' => 'Imię i nazwisko',
     'Email' => 'Email',
     'message' => 'Wiadomość',
+    'manageAccount' => 'Zarządzaj kontem',
 ];

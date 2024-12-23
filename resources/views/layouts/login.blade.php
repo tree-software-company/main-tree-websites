@@ -137,12 +137,13 @@
             @yield('Footercontent')
             <div class="footer-first__columns">
                 <div class="footer-first__column">
-                    <div class="footer-first__header accordion-header">
+                    <div classAccount
+                    ="footer-first__header accordion-header">
                         <i class="icon-circle-down"></i>
                         <h2 class="title"> {{ __('message.account') }}</h2>
                     </div>
                     <div class="footer-first__links accordion-content">
-                        <!-- Links or content here -->
+                        <a href="/user/edit">{{ __('message.manageAccount') }}</a>
                     </div>
                 </div>
                 <div class="footer-first__column">

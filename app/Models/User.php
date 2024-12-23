@@ -27,7 +27,7 @@ class User implements Authenticatable
     protected $keyType = 'string';
 
     protected $fillable = [
-        'user_id', 'name', 'email', 'password',
+        'user_id', 'name', 'email', 'password','phone', 'first_name', 'last_name', 'birthday', 'country',
     ];
 
     public static function createUser(array $data)

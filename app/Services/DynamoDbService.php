@@ -123,7 +123,6 @@ class DynamoDbService
                 $userInstance = new User();
                 $userInstance->id = $user['user_id']['N'];
                 $userInstance->email = $user['email']['S'];
-                $userInstance->name = $user['name']['S']; 
 
                 Auth::login($userInstance);
 
@@ -175,6 +174,44 @@ class DynamoDbService
             return null;
         }
     }
+
+    public function updateUser($userId, array $data)
+    {
+        $updateExpression = [];
+        $expressionValues = [];
+    
+        // Budowanie dynamicznego wyrażenia aktualizacji
+        foreach ($data as $key => $value) {
+            // Sprawdzamy, czy klucz jest hasłem, aby odpowiednio go haszować
+            if ($key == 'password') {
+                $value = bcrypt($value);  // Haszowanie hasła przed zapisem
+            }
+            // Dodajemy nowe wyrażenie aktualizacji
+            $updateExpression[] = "$key = :$key";
+            $expressionValues[":$key"] = ['S' => $value];
+        }
+    
+        try {
+            // Wykonanie zapytania aktualizacji w DynamoDB
+            $this->dynamoDb->updateItem([
+                'TableName' => 'users', // Przekazujemy nazwę tabeli
+                'Key' => [
+                    'user_id' => ['N' => (string) $userId], // Przekazanie userId jako klucz
+                ],
+                'UpdateExpression' => 'SET ' . implode(', ', $updateExpression),
+                'ExpressionAttributeValues' => $expressionValues,
+            ]);
+            
+            // Możesz także dodać logowanie, aby wiedzieć, że aktualizacja się powiodła
+            Log::info("User with ID $userId successfully updated in DynamoDB.");
+            
+        } catch (\Aws\Exception\AwsException $e) {
+            // Obsługa błędów i logowanie
+            Log::error('Error updating user: ' . $e->getMessage());
+            throw new Exception('Error updating user: ' . $e->getMessage());
+        }
+    }
+    
 
     public function listTables()
     {

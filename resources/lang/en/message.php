@@ -28,4 +28,5 @@ return [
     'FullName' => 'Full Name',
     'Email' => 'Email',
     'message' => 'Message',
+    'manageAccount' => 'Manage Account',
 ];

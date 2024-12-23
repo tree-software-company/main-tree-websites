@@ -144,7 +144,7 @@
                         <h2 class="title"> {{ __('message.account') }}</h2>
                     </div>
                     <div class="footer-first__links accordion-content">
-                        <!-- Links or content here -->
+                        <a href="/user/edit">{{ __('message.manageAccount') }}</a>
                     </div>
                 </div>
                 <div class="footer-first__column">

@@ -2,8 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
-use App\Http\Controllers\TreeForBusinessController;
-use App\Http\Controllers\TreeForEducationController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\LandingPageList;
 use App\Http\Controllers\SitemapController;
@@ -18,6 +17,9 @@ Route::get('/en-us', function () {
 });
 
 Auth::routes();
+
+Route::get('/user/edit', [UserController::class, 'edit'])->name('user.edit');
+Route::put('/user/update', [UserController::class, 'update'])->name('user.update');
 
 Route::get('/en-us/{slug}', function ($slug) {
     return redirect("/$slug", 301);
