@@ -123,6 +123,7 @@ class DynamoDbService
                 $userInstance = new User();
                 $userInstance->id = $user['user_id']['N'];
                 $userInstance->email = $user['email']['S'];
+                $userInstance->phone = $user['phone']['S'] ?? null; 
 
                 Auth::login($userInstance);
 
@@ -177,35 +178,31 @@ class DynamoDbService
 
     public function updateUser($userId, array $data)
     {
-        $updateExpression = [];
-        $expressionValues = [];
-        
-        foreach ($data as $key => $value) {
-            if ($key == 'password') {
-                $value = bcrypt($value); 
-            }
-            $updateExpression[] = "$key = :$key";
-            $expressionValues[":$key"] = ['S' => $value];
-        }
-        
-        try {
-            $this->dynamoDb->updateItem([
-                'TableName' => 'users', 
-                'Key' => [
-                    'user_id' => ['N' => (string) $userId], 
-                ],
-                'UpdateExpression' => 'SET ' . implode(', ', $updateExpression),
-                'ExpressionAttributeValues' => $expressionValues,
-            ]);
-            
-            Log::info("User with ID $userId successfully updated in DynamoDB.");
-            
-        } catch (\Aws\Exception\AwsException $e) {
-            Log::error('Error updating user: ' . $e->getMessage());
-            throw new Exception('Error updating user: ' . $e->getMessage());
-        }
-    }
+        $updateExprParts = [];
+        $exprValues = [];
+        $exprNames = [];
+        $i = 0;
 
+        foreach ($data as $key => $value) {
+            $i++;
+            $updateExprParts[] = "#attr{$i} = :val{$i}";
+            $exprValues[":val{$i}"] = ['S' => (string) $value];  
+            $exprNames["#attr{$i}"] = $key;
+        }
+
+        $params = [
+            'TableName' => 'users',
+            'Key' => [
+                'user_id' => ['N' => (string) $userId],
+            ],
+            'UpdateExpression' => 'SET ' . implode(', ', $updateExprParts),
+            'ExpressionAttributeValues' => $exprValues,
+            'ExpressionAttributeNames' => $exprNames,
+            'ReturnValues' => 'ALL_NEW',
+        ];
+
+        $this->dynamoDb->updateItem($params);
+    }
     
 
     public function listTables()

@@ -19,14 +19,9 @@ class LoginController extends Controller
         $this->dynamoDbService = $dynamoDbService;
     }
 
-    /**
-     * Show the login form.
-     *
-     * @return \Illuminate\View\View
-     */
     public function showLoginForm()
     {
-        return view('auth.login');  // Upewnij się, że masz widok 'auth.login'
+        return view('auth.login');
     }
 
     public function login(Request $request)

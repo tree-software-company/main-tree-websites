@@ -18,6 +18,7 @@ class User implements Authenticatable
     public $email;
     public $name;
     public $password;
+    public $phone;
     protected $rememberToken;
 
     protected $connection = 'dynamodb';
