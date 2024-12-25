@@ -9,6 +9,7 @@ use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LogOut;
 
 Route::get('/', [HomepageController::class, 'index']);
 
@@ -17,6 +18,8 @@ Route::get('/en-us', function () {
 });
 
 Auth::routes();
+
+Route::get('/logout', [LogOut::class, 'logout'])->name('logout');
 
 Route::get('/user/edit', [UserController::class, 'edit'])->name('user.edit');
 Route::put('/user/update', [UserController::class, 'update'])->name('user.update');
@@ -28,8 +31,6 @@ Route::get('/en-us/{slug}', function ($slug) {
 Route::post('/contact', [ContactController::class, 'submitForm'])->name('contact.submit');
 
 Route::post('/register-product', [LandingPageList::class, 'submitForm'])->name('register-product.submit')->where('url', '.*');
-
-// Define route for '/landing-page' without locale prefix (fallback for en-us)
 
 Route::get('/{url}', [PagesController::class, 'show'])->where('url', '.*');
 

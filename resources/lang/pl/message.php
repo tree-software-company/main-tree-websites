@@ -29,4 +29,6 @@ return [
     'Email' => 'Email',
     'message' => 'Wiadomość',
     'manageAccount' => 'Zarządzaj kontem',
+    'singOut' => 'Wyloguj',
+    'singIn' => 'Zaloguj',
 ];

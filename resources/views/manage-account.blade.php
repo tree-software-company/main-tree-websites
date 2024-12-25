@@ -81,6 +81,14 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+
+            <div class="form-group">
+                <label for="current_password">Obecne hasło</label>
+                <input type="password" class="form-control @error('current_password') is-invalid @enderror" id="current_password" name="current_password" required>
+                @error('current_password')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
         
             <button type="submit" class="btn btn-primary">Zapisz zmiany</button>
         </form>

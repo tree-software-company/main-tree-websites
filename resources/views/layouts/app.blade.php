@@ -50,11 +50,11 @@
                     <div class="account-dropdown">
                         @if (Route::has('login'))
                             @auth
-                                <a href="{{ url('/home') }}" class="navigation-desktop-item home">Home</a>
+                            <a href="{{ url('/logout') }}" class="navigation-desktop-item home">{{ __('message.singOut') }}</a>
                             @else
-                                <a href="{{ route('login') }}" class="navigation-desktop-item log-in">Log in</a>
+                                <a href="{{ route('login') }}" class="navigation-desktop-item log-in">{{ __('message.singIn') }}</a>
                                 @if (Route::has('register'))
-                                    <a href="{{ route('register') }}" class="navigation-desktop-item register">Register</a>
+                                    <a href="{{ route('register') }}" class="navigation-desktop-item register">{{ __('message.Register') }}</a>
                                 @endif
                             @endauth
                         @endif
@@ -92,11 +92,11 @@
                         <div class="dropdown__items">
                             @if (Route::has('login'))
                                 @auth
-                                    <a href="{{ url('/home') }}" class="navigation-desktop-item home">Home</a>
+                                    <a href="{{ url('/logout') }}" class="navigation-desktop-item home">{{ __('message.singOut') }}</a>
                                 @else
-                                    <a href="{{ route('login') }}" class="navigation-desktop-item log-in">Log in</a>
+                                    <a href="{{ route('login') }}" class="navigation-desktop-item log-in">{{ __('message.singIn') }}</a>
                                     @if (Route::has('register'))
-                                        <a href="{{ route('register') }}" class="navigation-desktop-item register">Register</a>
+                                        <a href="{{ route('register') }}" class="navigation-desktop-item register">{{ __('message.Register') }}</a>
                                     @endif
                                 @endauth
                             @endif

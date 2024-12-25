@@ -32,6 +32,7 @@ class UserController extends Controller
     public function update(Request $request)
     {
         $request->validate([
+            'current_password' => 'required',
             'email' => 'required|email',
             'phone' => 'required|numeric',
             'first_name' => 'required|string|max:255',
@@ -40,6 +41,11 @@ class UserController extends Controller
             'country' => 'required|string|max:255',
             'password' => 'nullable|min:6|confirmed',
         ]);
+
+        $dynamoUser = $this->dynamoDbService->findUserById(Auth::id());
+        if (!$dynamoUser || !Hash::check($request->input('current_password'), $dynamoUser['password']['S'])) {
+            return back()->with('error', 'Incorrect current password..');
+        }
     
         $data = $request->only(['email', 'phone', 'first_name', 'last_name', 'birthday', 'country']);
     
@@ -49,8 +55,9 @@ class UserController extends Controller
         if ($existingUserByEmail && $data['email'] !== Auth::user()->email) {
             return back()->with('error', 'This email is already in use by another user.');
         }
-    
-        if ($existingUserByPhone && $data['phone'] !== Auth::user()->phone) {
+
+        $phoneConflict = $this->dynamoDbService->phoneBelongsToAnotherUser($data['phone'], Auth::id());
+        if ($phoneConflict) {
             return back()->with('error', 'This phone number is already in use by another user.');
         }
     

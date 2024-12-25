@@ -58,6 +58,28 @@ class DynamoDbService
         return count($result['Items']) > 0; 
     }
     
+    public function phoneBelongsToAnotherUser($phone, $currentUserId)
+    {
+        $result = $this->dynamoDb->scan([
+            'TableName' => 'users',
+            'FilterExpression' => 'phone = :phone',
+            'ExpressionAttributeValues' => [
+                ':phone' => ['S' => $phone],
+            ],
+        ]);
+
+        if (count($result['Items']) === 0) {
+            return false;
+        }
+
+        foreach ($result['Items'] as $item) {
+            if ($item['user_id']['N'] !== (string)$currentUserId) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     public function registerUser(array $data)
     {
@@ -383,20 +405,20 @@ class DynamoDbService
     }
 
     public function getAllPages()
-{
-    try {
-        $result = $this->dynamoDb->scan([
-            'TableName' => 'main-website',  
-        ]);
+    {
+        try {
+            $result = $this->dynamoDb->scan([
+                'TableName' => 'main-website',  
+            ]);
 
-        if (isset($result['Items']) && count($result['Items']) > 0) {
-            return $this->unmarshalItems($result['Items']);
+            if (isset($result['Items']) && count($result['Items']) > 0) {
+                return $this->unmarshalItems($result['Items']);
+            }
+
+            return []; 
+        } catch (\Aws\Exception\AwsException $e) {
+            dd('Error: ' . $e->getMessage());
         }
-
-        return []; 
-    } catch (\Aws\Exception\AwsException $e) {
-        dd('Error: ' . $e->getMessage());
     }
-}
 
 }

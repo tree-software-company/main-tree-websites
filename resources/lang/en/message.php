@@ -29,4 +29,6 @@ return [
     'Email' => 'Email',
     'message' => 'Message',
     'manageAccount' => 'Manage Account',
+    'singOut' => 'Sign out',
+    'singIn' => 'Sign in',
 ];
