@@ -421,4 +421,30 @@ class DynamoDbService
         }
     }
 
+    public function emailExistsForProduct($email, $product)
+    {
+        $result = $this->dynamoDb->scan([
+            'TableName' => 'landing-page-newsletter',
+            'FilterExpression' => 'email = :email AND product = :product',
+            'ExpressionAttributeValues' => [
+                ':email'   => ['S' => $email],
+                ':product' => ['S' => $product]
+            ],
+        ]);
+
+        return count($result['Items']) > 0;
+    }
+
+    public function searchMetaData($keyword)
+    {
+        $result = $this->dynamoDb->scan([
+            'TableName' => 'main-website',
+            'FilterExpression' => 'contains(meta_title, :k) OR contains(meta_description, :k)',
+            'ExpressionAttributeValues' => [
+                ':k' => ['S' => $keyword],
+            ],
+        ]);
+        return $this->unmarshalItems($result['Items']);
+    }
+
 }

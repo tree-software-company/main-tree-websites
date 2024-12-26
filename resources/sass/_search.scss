@@ -1,0 +1,36 @@
+.search-results-container {
+    padding: 50px;
+
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+    .search-results-list {
+        list-style: none;
+        padding: 0;
+
+        .search-result-item {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+
+            h2 {
+                font-size: 1.5rem;
+                margin-bottom: 5px;
+            }
+
+            p {
+                color: #555;
+            }
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+    }
+
+    p {
+        font-size: 1.2rem;
+        color: #777;
+    }
+}

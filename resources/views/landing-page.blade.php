@@ -46,6 +46,13 @@
 
     <button class="btn-ota">{{ __('message.RegisterNow') }}</button>
 
+    @if (session('error'))
+      <div class="alert alert-danger">{{ session('error') }}</div>
+    @endif
+    @if (session('success'))
+      <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
+
     <div class="registration-form">
       <span class="icon-cross close-form"></span> 
       <h2>{{ __('message.Registration') }}</h2>

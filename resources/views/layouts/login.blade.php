@@ -38,7 +38,11 @@
                         <i class="icon-search"></i>
                     </button>
                     <div class="search-dropdown">
-                        <input type="text" placeholder="Search...">
+                        <form action="/search" method="GET">
+                            <input type="text" name="keyword" placeholder="{{ __('message.searchWebsite') }}" />
+                            <button type="submit">{{ __('message.search') }}</button>
+                        </form>
+                    </div>
                     </div>
                 </div>
                 <div class="account">
@@ -77,7 +81,11 @@
                     <div class="search-dropdown-mobile">
                         <i class="icon-cross close"></i>
                         <div class="dropdown__items">
-                            <input type="text" placeholder="Search...">
+                            <form action="/search" method="GET">
+                                <input type="text" name="keyword" placeholder="{{ __('message.searchWebsite') }}" />
+                                <button type="submit">{{ __('message.search') }}</button>
+                            </form>
+                        </div>
                         </div>
                     </div>
                 </div>

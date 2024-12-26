@@ -16,17 +16,18 @@ class LandingPageList extends Controller
 
     public function submitForm(Request $request)
     {
-        // Validate form input
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'product' => 'required|string',
         ]);
 
-        // Handle the registration logic here (saving to DB, etc.)
+        if ($this->dynamoDbService->emailExistsForProduct($validatedData['email'], $validatedData['product'])) {
+            return redirect()->back()->with('error', 'Email already registered for this product.');
+        }
+
         $this->dynamoDbService->saveFormLandingPageNewsletter($validatedData);
 
-        // Redirect back with success message
         return redirect()->back()->with('success', 'Registration successful!');
     }
 }

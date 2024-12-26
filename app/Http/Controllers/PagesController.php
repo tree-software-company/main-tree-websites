@@ -14,23 +14,31 @@ class PagesController extends Controller
         $this->dynamoDBService = $dynamoDBService;
     }
 
-    public function show($url, $locale = 'en-us')
+    public function show(Request $request, $url, $locale = 'en-us')
     {
-        $data = $this->dynamoDBService->getDataByUrl('main-website', $url);
+        $keyword = $request->input('keyword');
 
+        $data = $this->dynamoDBService->getDataByUrl('main-website', $url);
         $page = $this->dynamoDBService->getAllData('main-website');
-        
+
+        $results = null;
+
+        if ($keyword) {
+            $results = $this->dynamoDBService->searchMetaData($keyword);
+        }
 
         if ($data) {
             $lang = $data['lang'] ?? $locale;  
-            
             App::setLocale($lang);
 
-            if($page){
-                return view($data['controller_name'], ['data' => $data, 'page' => $page]);
-            } else {
-                return view($data['controller_name'], ['data' => $data]);
-            }
+            $viewData = [
+                'data' => $data,
+                'page' => $page,
+                'results' => $results,
+                'keyword' => $keyword
+            ];
+
+            return view($data['controller_name'], $viewData);
         }
 
         return abort(404, 'Page not found');
