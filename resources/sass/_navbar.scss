@@ -251,4 +251,28 @@
               
         }
     }
+
+    .dark {
+        .navigation-mobile {
+            .search-dropdown-mobile, .account-dropdown-mobile, .menu-dropdown-mobile {
+                background-color: $navbar-bg-color-dark;
+            }
+
+            .accordion-navigation__item {
+                color: $navbar-text-color-dark;
+            }
+        }
+    }
+
+    .light {
+        .navigation-mobile {
+            .search-dropdown-mobile, .account-dropdown-mobile, .menu-dropdown-mobile {
+                background-color: $navbar-bg-color-light;
+            }
+
+            .accordion-navigation__item {
+                color: $navbar-text-color-light;
+            }
+        }
+    }
 }

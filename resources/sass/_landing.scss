@@ -104,8 +104,8 @@
 
           .accordion-question {
             width: 100%;
-            background: #007bff;
-            color: white;
+            background: #FFBE98;
+            color: #000;
             padding: 10px;
             font-size: 1rem;
             text-align: left;
@@ -115,7 +115,7 @@
             transition: background 0.3s;
 
             &:hover {
-              background: #0056b3;
+              background: #30D5C8;
             }
           }
 

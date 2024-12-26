@@ -48,6 +48,14 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'birthday' => ['required', 'date', 'before:today'],
             'phone' => ['required', 'string', 'regex:/^\+?[0-9]{1,3}?[-.\s]?[0-9]{1,4}[-.\s]?[0-9]{1,4}[-.\s]?[0-9]{1,9}$/'],
+            'math_answer' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if ((int)$value !== (int)session('math_sum')) {
+                        $fail('Wrong math answer.');
+                    }
+                },
+            ],
         ]);
     }
     

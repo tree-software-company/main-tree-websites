@@ -1,6 +1,7 @@
 <?php
     $favicon = 'logo-background.jpeg';
     $faviconUrl = Storage::disk('s3')->url($favicon);
+    $user = auth()->user();
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +17,7 @@
     @viteReactRefresh
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
-<body class="{{ app()->getLocale() }} light">
+<body class="{{ app()->getLocale() }} dark">
 
     <header class="navigation-desktop">
         <nav class="navbar">
@@ -42,7 +43,6 @@
                             <input type="text" name="keyword" placeholder="{{ __('message.searchWebsite') }}" />
                             <button type="submit">{{ __('message.search') }}</button>
                         </form>
-                    </div>
                     </div>
                 </div>
                 <div class="account">
@@ -98,11 +98,11 @@
                         <div class="dropdown__items">
                             @if (Route::has('login'))
                                 @auth
-                                <a href="{{ url('/logout') }}" class="navigation-desktop-item home">{{ __('message.singOut') }}</a>
+                                    <a href="{{ url('/logout') }}" class="accordion-navigation__item navigation-desktop-item home">{{ __('message.singOut') }}</a>
                                 @else
-                                    <a href="{{ route('login') }}" class="navigation-desktop-item log-in">{{ __('message.singIn') }}</a>
+                                    <a href="{{ route('login') }}" class="accordion-navigation__item navigation-desktop-item log-in">{{ __('message.singIn') }}</a>
                                     @if (Route::has('register'))
-                                        <a href="{{ route('register') }}" class="navigation-desktop-item register">{{ __('message.Register') }}</a>
+                                        <a href="{{ route('register') }}" class="accordion-navigation__item navigation-desktop-item register">{{ __('message.Register') }}</a>
                                     @endif
                                 @endauth
                             @endif
@@ -145,8 +145,7 @@
             @yield('Footercontent')
             <div class="footer-first__columns">
                 <div class="footer-first__column">
-                    <div classAccount
-                    ="footer-first__header accordion-header">
+                    <div class="footer-first__header accordion-header">
                         <i class="icon-circle-down"></i>
                         <h2 class="title"> {{ __('message.account') }}</h2>
                     </div>
@@ -210,5 +209,6 @@
         </div>
     </footer>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>

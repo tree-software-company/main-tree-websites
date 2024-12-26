@@ -99,11 +99,11 @@
                         <div class="dropdown__items">
                             @if (Route::has('login'))
                                 @auth
-                                    <a href="{{ url('/logout') }}" class="navigation-desktop-item home">{{ __('message.singOut') }}</a>
+                                    <a href="{{ url('/logout') }}" class="accordion-navigation__item navigation-desktop-item home">{{ __('message.singOut') }}</a>
                                 @else
-                                    <a href="{{ route('login') }}" class="navigation-desktop-item log-in">{{ __('message.singIn') }}</a>
+                                    <a href="{{ route('login') }}" class="accordion-navigation__item navigation-desktop-item log-in">{{ __('message.singIn') }}</a>
                                     @if (Route::has('register'))
-                                        <a href="{{ route('register') }}" class="navigation-desktop-item register">{{ __('message.Register') }}</a>
+                                        <a href="{{ route('register') }}" class="accordion-navigation__item navigation-desktop-item register">{{ __('message.Register') }}</a>
                                     @endif
                                 @endauth
                             @endif

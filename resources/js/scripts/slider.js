@@ -1,9 +1,21 @@
 $(document).ready(function(){
-  $('.slider').slick({
+  $('.short-slider').slick({
     autoplay: true,
     autoplaySpeed: 2000,
     infinite: true,
     dots: true,
+    arrows: false,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  });
+});
+
+$(document).ready(function(){
+  $('.long-slider').slick({
+    autoplay: true,
+    autoplaySpeed: 1000,
+    infinite: true,
+    dots: false,
     arrows: false,
     slidesToShow: 2,
     slidesToScroll: 1,

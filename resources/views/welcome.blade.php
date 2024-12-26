@@ -70,7 +70,15 @@
     </div>
 
     <div class="sliders">
-        <div class="long-slider">Short Slider</div>
+        <div class="slider short-slider">
+            @if(isset($data['short_slider']))
+                @foreach($data['short_slider'] as $slider)
+                    <a href="{{$slider[0]}}" class="slider-item">
+                        <img src="{{$slider[1]}}" />
+                    </a>
+                @endforeach
+            @endif
+        </div>
         <div class="slider long-slider">
             @if(isset($data['long_slider']))
                 @foreach($data['long_slider'] as $slider)
