@@ -507,12 +507,6 @@ class DynamoDbService
         $items = $this->unmarshalItems($result['Items']);
         return count($items) ? $items[0] : [];
     }
-    /**
-     * Search users based on provided parameters.
-     *
-     * @param array $params
-     * @return array
-     */
     public function isAdmin($userId)
     {
         $numericId = (int) $userId;

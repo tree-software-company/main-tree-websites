@@ -67,6 +67,7 @@
       <tr>
         <th>Email</th>
         <th>Name</th>
+        <th>Product</th>
       </tr>
     </thead>
     <tbody>
@@ -74,6 +75,7 @@
       <tr>
         <td>{{ $nl['email'] ?? 'N/A' }}</td>
         <td>{{ $nl['name'] ?? 'N/A' }}</td>
+        <td>{{ $nl['product'] ?? 'N/A' }}</td> 
       </tr>
       @endforeach
     </tbody>
