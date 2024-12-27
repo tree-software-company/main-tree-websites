@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="legal-document">
+<div class="container">
     <h1>{{ $data['title'] }}</h1>
     <span>
-        {{ $data['legal_document'] }}
+        {!! nl2br(e($data['legal_document'])) !!}
     </span>
 </div>
 @endsection

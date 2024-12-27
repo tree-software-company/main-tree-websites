@@ -447,4 +447,69 @@ class DynamoDbService
         return $this->unmarshalItems($result['Items']);
     }
 
+    public function getFormWebsiteRecords()
+    {
+        $result = $this->dynamoDb->scan([
+            'TableName' => 'form_website',
+        ]);
+        return $this->unmarshalItems($result['Items']);
+    }
+
+    public function updateFormWebsiteStatus($id, $status)
+    {
+        $this->dynamoDb->updateItem([
+            'TableName' => 'form_website',
+            'Key'       => ['id' => ['S' => $id]],
+            'UpdateExpression' => 'SET #st = :s',
+            'ExpressionAttributeNames' => ['#st' => 'status'],
+            'ExpressionAttributeValues' => [':s' => ['S' => $status]],
+        ]);
+    }
+
+    public function getNewsletterRecords()
+    {
+        $result = $this->dynamoDb->scan([
+            'TableName' => 'landing-page-newsletter',
+        ]);
+        return $this->unmarshalItems($result['Items']);
+    }
+
+    public function getAllUsers()
+    {
+        $result = $this->dynamoDb->scan([
+            'TableName' => 'users',
+        ]);
+        return $this->unmarshalItems($result['Items']);
+    }
+
+    public function updateUserPassword($userId, $hashedPassword)
+    {
+        $this->dynamoDb->updateItem([
+            'TableName' => 'users',
+            'Key'       => ['user_id' => ['N' => (string)$userId]],
+            'UpdateExpression' => 'SET #pwd = :p',
+            'ExpressionAttributeNames' => ['#pwd' => 'password'],
+            'ExpressionAttributeValues' => [':p' => ['S' => $hashedPassword]],
+        ]);
+    }
+
+    public function getUser($userId)
+    {
+        $result = $this->dynamoDb->query([
+            'TableName' => 'users',
+            'KeyConditionExpression' => 'user_id = :uid',
+            'ExpressionAttributeValues' => [
+                ':uid' => ['N' => (string)$userId],
+            ],
+        ]);
+        $items = $this->unmarshalItems($result['Items']);
+        return count($items) ? $items[0] : [];
+    }
+
+    public function isAdmin($userId)
+    {
+        $user = $this->getUser($userId);
+        return (isset($user['user_type']) && $user['user_type'] === 'admin');
+    }
+
 }

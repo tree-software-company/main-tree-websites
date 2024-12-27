@@ -83,7 +83,7 @@
                         <div class="dropdown__items">
                             <form action="/search" method="GET">
                                 <input type="text" name="keyword" placeholder="{{ __('message.searchWebsite') }}" />
-                                <button type="submit">{{ __('message.search') }}</button>
+                                <button type="btn-submit" class="btn-submit">{{ __('message.search') }}</button>
                             </form>
                         </div>
                         </div>
