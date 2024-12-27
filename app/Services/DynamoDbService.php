@@ -17,6 +17,7 @@ use Carbon\Carbon;
 class DynamoDbService
 {
     protected $dynamoDb;
+    protected $marshaler;
 
     public function __construct()
     {
@@ -28,6 +29,7 @@ class DynamoDbService
                 'secret' => env('AWS_SECRET_ACCESS_KEY'),
             ],
         ]);
+        $this->marshaler = new Marshaler();
     }
 
     public function userExistsByEmail($email)
@@ -332,10 +334,10 @@ class DynamoDbService
                 'name'       => $data['name'],
                 'email'      => $data['email'],
                 'message'    => $data['message'],
+                'status'     => $data['status'],
                 'created_at' => now()->toIso8601String(),
             ];
 
-            // Marshal the item
             $item = $marshaler->marshalItem($item);
 
             return $this->dynamoDb->putItem([
@@ -352,7 +354,6 @@ class DynamoDbService
         try {
             $marshaler = new Marshaler();
 
-            // Generate a unique submission ID
             $submissionId = round(microtime(true) * 1000);
 
             $item = [
@@ -363,7 +364,6 @@ class DynamoDbService
                 'created_at' => now()->toIso8601String(),
             ];
 
-            // Marshal the item
             $item = $marshaler->marshalItem($item);
 
             return $this->dynamoDb->putItem([
@@ -378,13 +378,9 @@ class DynamoDbService
     private function unmarshalItems($items)
     {
         $marshaler = new Marshaler();
-        $unmarshalledItems = [];
-
-        foreach ($items as $item) {
-            $unmarshalledItems[] = $marshaler->unmarshalItem($item);
-        }
-
-        return $unmarshalledItems;
+        return array_map(function($item) use ($marshaler) {
+            return $marshaler->unmarshalItem($item);
+        }, $items);
     }
 
     public function getAllData($tableName)
@@ -459,7 +455,7 @@ class DynamoDbService
     {
         $this->dynamoDb->updateItem([
             'TableName' => 'form_website',
-            'Key'       => ['id' => ['S' => $id]],
+            'Key'       => ['id' => ['N' => $id]],
             'UpdateExpression' => 'SET #st = :s',
             'ExpressionAttributeNames' => ['#st' => 'status'],
             'ExpressionAttributeValues' => [':s' => ['S' => $status]],
@@ -476,10 +472,15 @@ class DynamoDbService
 
     public function getAllUsers()
     {
-        $result = $this->dynamoDb->scan([
-            'TableName' => 'users',
-        ]);
-        return $this->unmarshalItems($result['Items']);
+        try {
+            $result = $this->dynamoDb->scan([
+                'TableName' => 'users',
+            ]);
+            return $this->unmarshalItems($result['Items']);
+        } catch (\Aws\Exception\AwsException $e) {
+            Log::error('DynamoDB Scan Error (users):', ['Error' => $e->getMessage()]);
+            return [];
+        }
     }
 
     public function updateUserPassword($userId, $hashedPassword)
@@ -495,21 +496,118 @@ class DynamoDbService
 
     public function getUser($userId)
     {
+        $numericId = (int) $userId; 
         $result = $this->dynamoDb->query([
             'TableName' => 'users',
             'KeyConditionExpression' => 'user_id = :uid',
             'ExpressionAttributeValues' => [
-                ':uid' => ['N' => (string)$userId],
+                ':uid' => ['N' => (string)$numericId],
             ],
         ]);
         $items = $this->unmarshalItems($result['Items']);
         return count($items) ? $items[0] : [];
     }
-
+    /**
+     * Search users based on provided parameters.
+     *
+     * @param array $params
+     * @return array
+     */
     public function isAdmin($userId)
     {
-        $user = $this->getUser($userId);
-        return (isset($user['user_type']) && $user['user_type'] === 'admin');
+        $numericId = (int) $userId;
+        $user = $this->getUser($numericId);
+        return isset($user['user_type']) && $user['user_type'] === 'admin';
+    }
+
+    public function updateUserType($userId, $userType)
+    {
+        try {
+            $this->dynamoDb->updateItem([
+                'TableName' => 'users',
+                'Key'       => [
+                    'user_id' => ['N' => (string)$userId],
+                ],
+                'UpdateExpression' => 'SET #ut = :ut',
+                'ExpressionAttributeNames' => [
+                    '#ut' => 'user_type',
+                ],
+                'ExpressionAttributeValues' => [
+                    ':ut' => ['S' => $userType],
+                ],
+                'ReturnValues' => 'ALL_NEW',
+            ]);
+        } catch (\Aws\Exception\AwsException $e) {
+            Log::error('DynamoDB UpdateItem Error (user_type): ' . $e->getMessage());
+            throw new Exception('Failed to update user type.');
+        }
+    }
+
+    /**
+     * Search users with pagination.
+     *
+     * @param array $params
+     * @param string|null $lastEvaluatedKey
+     * @param int $limit
+     * @return array
+     */
+    public function searchUsers(array $params, $lastEvaluatedKey = null, $limit = 100)
+    {
+        $filterExpressions = [];
+        $expressionAttributeValues = [];
+        $expressionAttributeNames = [];
+
+        if (!empty($params['first_name'])) {
+            $filterExpressions[] = "contains(first_name, :first_name)";
+            $expressionAttributeValues[':first_name'] = ['S' => $params['first_name']];
+        }
+
+        if (!empty($params['last_name'])) {
+            $filterExpressions[] = "contains(last_name, :last_name)";
+            $expressionAttributeValues[':last_name'] = ['S' => $params['last_name']];
+        }
+
+        if (!empty($params['email'])) {
+            $filterExpressions[] = "contains(email, :email)";
+            $expressionAttributeValues[':email'] = ['S' => $params['email']];
+        }
+
+        if (!empty($params['user_type'])) {
+            $filterExpressions[] = "#ut = :ut";
+            $expressionAttributeNames['#ut'] = 'user_type';
+            $expressionAttributeValues[':ut'] = ['S' => $params['user_type']];
+        }
+
+        $filterExpression = '';
+        if (count($filterExpressions) > 0) {
+            $filterExpression = implode(' AND ', $filterExpressions);
+        }
+
+        try {
+            $paramsQuery = [
+                'TableName' => 'users',
+                'Limit'     => $limit,
+            ];
+
+            if ($filterExpression !== '') {
+                $paramsQuery['FilterExpression'] = $filterExpression;
+                $paramsQuery['ExpressionAttributeValues'] = $expressionAttributeValues;
+                $paramsQuery['ExpressionAttributeNames'] = $expressionAttributeNames;
+            }
+
+            if ($lastEvaluatedKey) {
+                $paramsQuery['ExclusiveStartKey'] = $lastEvaluatedKey;
+            }
+
+            $result = $this->dynamoDb->scan($paramsQuery);
+            return [
+                'items' => $this->unmarshalItems($result['Items']),
+                'last_evaluated_key' => $result['LastEvaluatedKey'] ?? null,
+            ];
+        } catch (\Aws\Exception\AwsException $e) {
+            Log::error('DynamoDB SearchUsers Error: ' . $e->getMessage());
+            return ['items' => [], 'last_evaluated_key' => null];
+        }
     }
 
 }

@@ -15,17 +15,15 @@ class ContactController extends Controller
 
     public function submitForm(Request $request)
     {
-        // Walidacja danych formularza
         $validatedData = $request->validate([
             'name'    => 'required|string|max:255',
             'email'   => 'required|email|max:255',
             'message' => 'required|string',
+            'status' => 'required|string',
         ]);
 
-        // Zapisanie danych do DynamoDB
         $this->dynamoDbService->saveFormSubmission($validatedData);
 
-        // Przekierowanie z komunikatem
         return redirect()->back()->with('success', 'Your message has been sent successfully!');
     }
 }

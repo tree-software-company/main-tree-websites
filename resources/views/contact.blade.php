@@ -27,6 +27,7 @@
                 <textarea id="message" name="message" rows="5" required></textarea>
                 @error('message') <p class="error">{{ $message }}</p> @enderror
             </div>
+            <input type="hidden" name="status" value="not answered">
 
             <button type="submit" class="btn-submit">Send</button>
         </form>

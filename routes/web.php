@@ -30,6 +30,7 @@ Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 Route::post('/admin/form-website/status', [AdminController::class, 'updateFormWebsiteStatus'])->name('admin.updateFormWebsiteStatus');
 Route::post('/admin/send-email', [AdminController::class, 'sendEmailToUser'])->name('admin.sendEmail');
 Route::post('/admin/update-password', [AdminController::class, 'updateUserPassword'])->name('admin.updateUserPassword');
+Route::post('/admin/update-user-type', [AdminController::class, 'updateUserType'])->name('admin.updateUserType');
 
 Route::get('/en-us/{slug}', function ($slug) {
     return redirect("/$slug", 301);
