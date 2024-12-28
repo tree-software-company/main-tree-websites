@@ -46,7 +46,7 @@ jobs:
         key: ${{ secrets.EC2_PRIVATE_KEY }}
         port: 22
         script: |
-          set -e
+          set -e 
           cd /var/www/laravel
           git pull origin main
           composer install --no-dev --prefer-dist
