@@ -47,7 +47,6 @@ jobs:
           composer install --no-dev --prefer-dist
           npm install
           npm run prod
-          php artisan migrate --force
           php artisan config:clear
           php artisan cache:clear
           php artisan view:clear
