@@ -43,7 +43,6 @@ jobs:
         script: |
           cd /var/www/laravel
           git pull origin main
-          composer install --no-dev --prefer-dist
           npm install
           npm run prod
           php artisan migrate --force
