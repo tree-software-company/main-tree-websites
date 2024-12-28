@@ -1,0 +1,53 @@
+name: Deploy Laravel App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: 8.3
+        tools: composer
+
+    - name: Install Composer dependencies
+      run: composer install --no-dev --prefer-dist --no-progress --no-interaction
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
+
+    - name: Install NPM dependencies
+      run: npm install
+
+    - name: Build assets
+      run: npm run prod
+
+    - name: Deploy to EC2
+      uses: appleboy/ssh-action@v0.1.10
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USER }}
+        key: ${{ secrets.EC2_PRIVATE_KEY }}
+        port: 22
+        script: |
+          cd /var/www/laravel
+          git pull origin main
+          composer install --no-dev --prefer-dist
+          npm install
+          npm run prod
+          php artisan migrate --force
+          php artisan config:clear
+          php artisan cache:clear
+          php artisan view:clear
+          sudo systemctl restart nginx
