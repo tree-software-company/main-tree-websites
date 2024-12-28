@@ -26,7 +26,7 @@ jobs:
         AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
         AWS_BUCKET: ${{ secrets.AWS_BUCKET }}
       run: composer install --no-dev --prefer-dist --no-progress --no-interaction
-
+ 
     - name: Set up Node.js 
       uses: actions/setup-node@v3
       with:
