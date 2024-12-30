@@ -22,7 +22,7 @@ return [
     'homePage' => 'Home Page',
     'learnMore' => 'Learn More',
     'contactUsToLearnMore' => 'Contact Us to Learn More',
-    'RegisterNow' => 'Register now',
+    'RegisterNow' => 'Sign up for the newsletter',
     'Register' => 'Register',
     'Registration' => 'Registration',
     'FullName' => 'Full Name',

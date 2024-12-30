@@ -35,7 +35,7 @@
       <div class="accordion">
         @foreach($data['Q&A'] as $faq)
           <div class="accordion-item">
-            <button class="accordion-question">{{ $faq[0] }}</button>
+            <button class="accordion-question">{{ $faq[0] }} <i class="icon-circle-down"></i></button>
             <div class="accordion-answer">
               <p>{!! nl2br(e($faq[1])) !!}</p>
             </div>

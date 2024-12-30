@@ -22,7 +22,7 @@ return [
     'homePage' => 'Strona główna',
     'learnMore' => 'Dowiedz się więcej',
     'contactUsToLearnMore' => 'Skontaktuj się z nami, aby dowiedzieć się więcej',
-    'RegisterNow' => 'Zarejestruj się teraz',
+    'RegisterNow' => 'Zapisz się do newslettera',
     'Register' => 'Zarejestruj',
     'Registration' => 'Rejestracja',
     'FullName' => 'Imię i nazwisko',
