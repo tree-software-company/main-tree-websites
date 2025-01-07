@@ -6,7 +6,7 @@ return [
     'privacyPolicy' => 'Privacy Policy',
     'legal' => 'Legal',
     'sitemap' => 'Sitemap',
-    'copyright' => '© 2024 Tree. All rights reserved.',
+    'copyright' => '© 2025 Tree. All rights reserved.',
     'beautyBooking' => 'Beauty Booking',
     'beautyBookingPro' => 'Beauty Booking Pro',
     'account' => 'Account',
