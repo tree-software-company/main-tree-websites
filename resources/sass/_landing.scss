@@ -1,5 +1,3 @@
-/* resources/sass/landing.scss */
-
 .landing-page {
   position: relative;
   display: flex;
@@ -66,7 +64,6 @@
         flex-wrap: wrap;
 
         .ad {
-          width: 48%;
           background: #f0f0f0;
           padding: 15px;
           border-radius: 8px;
@@ -104,7 +101,6 @@
 
           .accordion-question {
             width: 100%;
-            background: #FFBE98;
             color: #000;
             padding: 10px;
             font-size: 1rem;
@@ -216,5 +212,17 @@
         }
       }
     }
+  }
+}
+
+.light {
+  .accordion-question {
+    background: $navbar-bg-color-light;
+  }
+}
+
+.dark {
+  .accordion-question {
+    background: $navbar-bg-color-dark;
   }
 }

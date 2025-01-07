@@ -2,6 +2,7 @@
     $favicon = 'logo-background.jpeg';
     $faviconUrl = Storage::disk('s3')->url($favicon);
     $user = auth()->user();
+    $year = date('Y');
 ?>
 
 <!DOCTYPE html>
@@ -196,7 +197,7 @@
     <footer class="footer-second">
         <div class="footer-links">
             <div class="footer-links-first__column">
-                <span class="text">{{ __('message.copyright') }}</span>
+                <span class="text">{{ __('message.copyrightSignature') }} {{$year}} {{ __('message.copyrightText') }}</span>
             </div>
             <div class="footer-links-second__column">
                 <a href="/{{ app()->getLocale() }}/legal/privacy">{{ __('message.privacyPolicy') }}</a>
