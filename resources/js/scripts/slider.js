@@ -2,6 +2,8 @@ $(document).ready(function(){
   $('.short-slider').slick({
     autoplay: true,
     autoplaySpeed: 2000,
+    accessibility: true,
+    focusOnSelect: true,
     infinite: true,
     dots: true,
     arrows: false,

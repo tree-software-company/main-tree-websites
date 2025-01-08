@@ -25,7 +25,7 @@
         <nav class="navbar">
             <div class="logo">
                 <a href="/{{ app()->getLocale() }}/">
-                    <img src="{{ $logoUrl }}" alt="logo" height="35px"/>
+                    <img src="{{ $logoUrl }}" alt="logo" height="35px" width="35px"/>
                 </a>
             </div>
             <div class="navigation-desktop">
@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div class="search">
-                    <button class="search-button">
+                    <button class="search-button" aria-labelledby="search-label">
                         <i class="icon-search"></i>
                     </button>
                     <div class="search-dropdown">
@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 <div class="account">
-                    <button class="account-button">
+                    <button class="account-button" aria-labelledby="search-label">
                         <i class="icon-user"></i>
                     </button>
                     <div class="account-dropdown">
@@ -72,7 +72,7 @@
         <nav class="navbar">
             <div class="logo-mobile">
                 <a href="/{{ app()->getLocale() }}/">
-                    <img src="{{ $logoUrl }}" alt="logo" height="35px"/>
+                    <img src="{{ $logoUrl }}" alt="logo" height="35px" width="35px"/>
                 </a>
             </div>
             <div class="navigation-mobile">
