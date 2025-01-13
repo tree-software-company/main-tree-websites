@@ -1,5 +1,5 @@
 <?php
-    $favicon = 'logo-background.jpeg';
+    $favicon = 'favicon.ico';
     $faviconUrl = Storage::disk('s3')->url($favicon);
     $user = auth()->user();
     $year = date('Y');
