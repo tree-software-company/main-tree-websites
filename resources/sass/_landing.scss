@@ -111,7 +111,7 @@
             transition: background 0.3s;
 
             &:hover {
-              background: #30D5C8;
+              background: #C8BBCE;
             }
           }
 
@@ -130,7 +130,7 @@
           }
 
           &.active .accordion-answer {
-            max-height: 200px; /* Adjust for answer content */
+            max-height: 200px;
           }
         }
       }
