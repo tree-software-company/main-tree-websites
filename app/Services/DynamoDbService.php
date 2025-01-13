@@ -604,4 +604,24 @@ class DynamoDbService
         }
     }
 
+    public function getSitemapUrls()
+    {
+        $params = [
+            'TableName' => 'main-website',
+            'ProjectionExpression' => 'url', 
+        ];
+
+        try {
+            $result = $this->dynamoDb->scan($params);
+            $urls = array_map(function($item) {
+                return $this->marshaler->unmarshalItem($item)['url']; 
+            }, $result['Items']);
+            Log::info('Fetched URLs from DynamoDB:', $urls); // Debugging line
+            return $urls;
+        } catch (\Aws\Exception\AwsException $e) {
+            Log::error('DynamoDB GetSitemapUrls Error: ' . $e->getMessage());
+            return [];
+        }
+    }
+
 }

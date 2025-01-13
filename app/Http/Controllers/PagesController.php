@@ -41,6 +41,6 @@ class PagesController extends Controller
             return view($data['controller_name'], $viewData);
         }
 
-        return abort(404, 'Page not found');
+        return view('404');
     }
 }

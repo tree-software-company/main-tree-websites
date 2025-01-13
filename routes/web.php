@@ -25,6 +25,7 @@ Route::get('/logout', [LogOut::class, 'logout'])->name('logout');
 Route::get('/user/edit', [UserController::class, 'edit'])->name('user.edit');
 Route::put('/user/update', [UserController::class, 'update'])->name('user.update');
 
+Route::get('/sitemap.xml', [SitemapController::class, 'index']);
 
 Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');
 Route::post('/admin/form-website/status', [AdminController::class, 'updateFormWebsiteStatus'])->name('admin.updateFormWebsiteStatus');

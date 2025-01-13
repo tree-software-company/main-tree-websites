@@ -13,6 +13,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="{{ $faviconUrl }}" type="image/x-icon">
+    <link rel="canonical" href="tree-websites.com/{{ $data['url'] }}">
     <title>{{$data['meta_title']}}</title>
     <meta name="description" content="{{$data['meta_description']}}">
 
