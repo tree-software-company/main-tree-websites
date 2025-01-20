@@ -17,6 +17,28 @@
     <title>{{$data['meta_title']}}</title>
     <meta name="description" content="{{$data['meta_description']}}">
 
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@id": "https://tree-websites.com/#organization",
+            "@type": "Organization",
+            "name": "Tree",
+            "url": "https://tree-websites.com",
+            "logo": "https://website-tree-main-asset.s3.us-west-1.amazonaws.com/logo-background.jpeg",
+            "contactPoint": [
+                {
+                    "@type": "ContactPoint",
+                    "mail": "tree.szymonmastalerz@gmail.com",
+                    "availableLanguage": ["EN"]
+                }
+            ],
+            "sameAs": [
+                "https://x.com/tree_websites",
+                "https://www.instagram.com/tree_websites/"
+            ]
+        }
+    </script>
+
     @viteReactRefresh
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
